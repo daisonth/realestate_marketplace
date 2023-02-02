@@ -15,6 +15,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
+<?php include("connection.php") ?>
+
+<?php
+  
+
+?>
+
 <body>
   <!-- ##### Main Content Wrapper Start ##### -->
   <div class="main-content-wrapper d-flex clearfix">
