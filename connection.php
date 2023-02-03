@@ -2,8 +2,9 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$conn = new mysqli($servername, $username, $password);
+$db_name = "realestate_db";
+$conn = mysqli_connect($servername, $username, $password, $db_name);
 // Check connection
-if ($conn->connect_error) {
-  die("Connection failure: " . $conn->connect_error);
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
 }
