@@ -3,7 +3,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 ?>
-
 <?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,13 +69,14 @@ error_reporting(E_ALL);
       <!-- Amado Nav -->
       <nav class="amado-nav">
         <ul class="nav-list">
-          <li class="active"><a href="index.php" class="fav-nav"><img src="img/core-img/home.png" alt=""> Home</a></li>
-          <li><a href="index.php" class="fav-nav"><img src="img/core-img/shopping.png" alt=""> Shop</a></li>
+          <li><a href="index.php" class="fav-nav"><img src="img/core-img/home.png" alt=""> Home</a></li>
+          <li><a href="shop.php" class="fav-nav"><img src="img/core-img/shopping.png" alt=""> Shop</a></li>
           <li><a href="sell.php" class="fav-nav"><img src="img/core-img/sell.png" alt=""> Sell</a></li>
-          <!-- <li><a href="product-details.php">Product</a></li>
-                    <li><a href="cart.php">Cart</a></li>
-                    <li><a href="checkout.php">Checkout</a></li> -->
-          <li><a href="#" class="fav-nav"><img src="img/core-img/star.png" alt=""> Favourite</a></li>
+          <li><a href="cart.php" class="fav-nav"><img src="img/core-img/star.png" alt=""> Favourite</a></li>
+          <?php if (isset($_SESSION["userid"])) { ?>
+            <li><a href="my_listings.php" class="fav-nav"><img src="img/core-img/listings.png" alt=""> My Listings</a></li>
+            <li><a href="user_account.php" class="fav-nav"><img src="img/core-img/user.png" alt=""> <?php echo $_SESSION["fname"] ?></a></li>
+          <?php } ?>
           <li><a href="#" class="search-nav"><img src="img/core-img/find.png" alt=""> Search</a></li>
         </ul>
       </nav>
@@ -86,22 +86,16 @@ error_reporting(E_ALL);
       if (isset($_SESSION["userid"])) {
       ?>
         <div class="amado-btn-group mt-30 mb-100">
-          <a href="user_account.php" class="btn amado-btn mb-15"> <?php echo $_SESSION["fname"] ?></a>
+          <a href="logout.php" class="btn amado-btn mb-15"> LOGOUT</a>
         </div>
       <?php
       } else {
       ?>
         <div class="amado-btn-group mt-30 mb-100">
-          <a href="login.php" class="btn amado-btn mb-15">Login</a>
-          <a href="signup.php" class="btn amado-btn active">SignUp</a>
+          <a href="login.php" class="btn amado-btn mb-15">LOGIN</a>
+          <a href="signup.php" class="btn amado-btn active">SIGNUP</a>
         </div>
       <?php } ?>
-      <!-- Social Button
-            <div class="social-info d-flex justify-content-between">
-                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            </div> -->
+
     </header>
     <!-- Header Area End -->

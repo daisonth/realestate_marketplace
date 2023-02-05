@@ -11,14 +11,6 @@
           <div class="footer-logo mr-50">
             <a href="index.php"><img src="img/core-img/logo2.png" alt=""></a>
           </div>
-          <!-- Copywrite Text -->
-          <p class="copywrite">
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>
-              document.write(new Date().getFullYear());
-            </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> & Re-distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          </p>
         </div>
       </div>
       <!-- Single Widget Area -->
@@ -37,7 +29,7 @@
                     <a class="nav-link" href="shop.php">Shop</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="product-details.php">Product</a>
+                    <a class="nav-link" href="property_details.php">Product</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="cart.php">Cart</a>

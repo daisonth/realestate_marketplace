@@ -25,7 +25,7 @@
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $query = "SELECT * FROM users_tbl WHERE email='$email' AND password='$password';";
+    $query = "SELECT userid,firstname FROM users_tbl WHERE email='$email' AND password='$password';";
     $result = mysqli_query($conn, $query);
 
     if ($result->num_rows > 0) {
@@ -33,7 +33,7 @@
       session_start();
       $_SESSION["userid"] = $row[0];
       $_SESSION["fname"] = $row[1];
-       header("location: index.php");
+      header("location: index.php");
     } else {
       echo "login faile";
     }
@@ -78,6 +78,7 @@
                   </div>
                 </div>
                 <div class="amado-btn-group mt-30 mb-100">
+                  <p>if you do not have an account, <a href="signup.php" class="text-weight-bold">SignUp Here</a></p>
                   <input type="submit" class="btn amado-btn mb-15" name="login" value="Login">
                 </div>
               </form>

@@ -24,7 +24,7 @@
         <!-- Hover Content -->
         <div class="hover-content">
           <div class="line"></div>
-          <p>From $180</p>
+          <p>From $190</p>
           <h4>Minimalistic Plant Pot</h4>
         </div>
       </a>
