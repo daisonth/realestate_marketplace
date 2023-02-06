@@ -76,21 +76,22 @@ if ($result->num_rows > 0) {
             <p><b>Location : </b> <?php echo $row["property_address"] ?></p>
             <p><b>City : </b> <?php echo $row["city"] ?></p>
             <p><b>Area Zipcode : </b> <?php echo $row["pin"] ?></p>
-          </div>
-          <form class="cart clearfix" method="post">
-            <?php if ($row["owner"] == $userid) { ?>
-              <button type="submit" name="edit" value="edit" class="btn amado-btn">EDIT LISTING</button>
-            <?php } else { ?>
-              <button type="submit" name="addtocart" value="5" class="btn amado-btn">Contact Owner</button>
-            <?php } ?>
-          </form>
 
+            <?php if ($row["owner"] == $userid) { ?>
+              <div class="amado-btn-group mt-30 mb-100">
+                <a href="edit_listing.php?id=<?php echo $property_id ?>" class="btn amado-btn mb-15"> EDIT LISTING</a>
+              </div>
+            <?php } else { ?>
+              <div class="amado-btn-group mt-30 mb-100">
+                <a href="contact_owner.php" class="btn amado-btn mb-15"> CONTACT OWNER</a>
+              </div>
+            <?php } ?>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<!-- Product Details Area End -->
+  <!-- Product Details Area End -->
 </div>
 <!-- ##### Main Content Wrapper End ##### -->
 
