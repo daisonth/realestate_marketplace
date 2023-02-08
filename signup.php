@@ -62,14 +62,14 @@
     <!-- Mobile Nav (max width 767px)-->
     <div class="mobile-nav">
       <!-- Navbar Brand -->
-      <a href="index.php"><img src="img/core-img/logo.png" alt=""></a>
+      <a href="index.php"><img src="img/core-img/daas.png" alt=""></a>
     </div>
 
     <!-- Header Area Start -->
     <header class="header-area clearfix">
       <!-- Logo -->
       <div class="logo">
-        <a href="index.php"><img src="img/core-img/logo.png" alt=""></a>
+        <a href="index.php"><img src="img/core-img/daas.png" alt=""></a>
       </div>
     </header>
     <!-- Header Area End -->
@@ -114,7 +114,7 @@
                     <input type="text" class="form-control" id="zipCode" placeholder="Pin Code" name="pin" value="<?php echo $pincode ?>">
                   </div>
                   <div class="col-md-6 mb-3">
-                    <input type="number" class="form-control" id="phone_number" min="0" placeholder="Phone No" name="phoneno" value="<?php echo $phoneno ?>" required>
+                    <input type="text" class="form-control" id="phone_number" min="0" placeholder="Phone No" name="phoneno" value="<?php echo $phoneno ?>" required>
                   </div>
                   <div class="col-md-6 mb-15">
                     <p>if you already have an account, <a href="login.php" class="text-weight-bold">login Here</a></p>

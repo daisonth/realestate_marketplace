@@ -48,7 +48,7 @@ error_reporting(E_ALL);
     <div class="mobile-nav">
       <!-- Navbar Brand -->
       <div class="amado-navbar-brand">
-        <a href="index.php"><img src="img/core-img/logo.png" alt=""></a>
+        <a href="index.php"><img src="img/core-img/daas.png" alt=""></a>
       </div>
       <!-- Navbar Toggler -->
       <div class="amado-navbar-toggler">
@@ -64,12 +64,13 @@ error_reporting(E_ALL);
       </div>
       <!-- Logo -->
       <div class="logo">
-        <a href="index.php"><img src="img/core-img/logo.png" alt=""></a>
+        <a href="index.php"><img src="img/core-img/daas.png" alt=""></a>
       </div>
       <!-- Amado Nav -->
       <nav class="amado-nav">
         <ul class="nav-list">
           <li><a href="index.php" class="fav-nav"><img src="img/core-img/home.png" alt=""> Home</a></li>
+          
           <li><a href="shop.php" class="fav-nav"><img src="img/core-img/shopping.png" alt=""> Shop</a></li>
           <li><a href="sell.php" class="fav-nav"><img src="img/core-img/sell.png" alt=""> Sell</a></li>
           <li><a href="cart.php" class="fav-nav"><img src="img/core-img/star.png" alt=""> Favourite</a></li>

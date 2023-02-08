@@ -45,14 +45,14 @@
     <!-- Mobile Nav (max width 767px)-->
     <div class="mobile-nav">
       <!-- Navbar Brand -->
-      <a href="index.php"><img src="img/core-img/logo.png" alt=""></a>
+      <a href="index.php"><img src="img/core-img/daas.png" alt=""></a>
     </div>
 
     <!-- Header Area Start -->
     <header class="header-area clearfix">
       <!-- Logo -->
       <div class="logo">
-        <a href="index.php"><img src="img/core-img/logo.png" alt=""></a>
+        <a href="index.php"><img src="img/core-img/daas.png" alt=""></a>
       </div>
     </header>
     <!-- Header Area End -->

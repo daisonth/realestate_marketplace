@@ -9,7 +9,7 @@
         <div class="single_widget_area">
           <!-- Logo -->
           <div class="footer-logo mr-50">
-            <a href="index.php"><img src="img/core-img/logo2.png" alt=""></a>
+            <a href="index.php"><img src="img/core-img/daas2.png" alt=""></a>
           </div>
         </div>
       </div>

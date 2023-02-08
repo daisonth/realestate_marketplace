@@ -305,7 +305,7 @@ if (isset($_POST["submit"])) {
                     <p class="mb-0"><b>Phone Number</b></p>
                   </div>
                   <div class="col-sm">
-                    <input type="number" class="form-control contactfill" id="phone_number" min="0" placeholder="Phone No" name="phoneno" value="<?php echo $phoneno ?>">
+                    <input type="text" class="form-control contactfill" id="phone_number" min="0" placeholder="Phone No" name="phoneno" value="<?php echo $phoneno ?>">
                   </div>
                 </div>
 

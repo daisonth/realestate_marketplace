@@ -9,8 +9,10 @@ if (!isset($_SESSION["userid"]) && !isset($_GET["id"])) {
   $userid = $_SESSION["userid"];
   $property_id = $_GET["id"];
 }
+
 $query = "SELECT * FROM active_listings_tbl WHERE listing_id='$property_id';";
 $result = mysqli_query($conn, $query);
+
 if ($result->num_rows > 0) {
   $row = mysqli_fetch_assoc($result);
 
@@ -51,60 +53,64 @@ if (isset($_POST["submit"])) {
   $logs = "";
 
   for ($i = 1; $i <= 4; $i++) {
-    $target_dir = "uploads/";
-    $var = "img" . $i;
-    $target_file = $target_dir . basename($_FILES[$var]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    if (!file_exists($_FILES['myfile']['tmp_name']) || !is_uploaded_file($_FILES['myfile']['tmp_name'])) {
+      echo 'No upload';
+    } else {
 
-    // Check if image file is a actual image or fake image
-    $check = getimagesize($_FILES[$var]["tmp_name"]);
-    if ($check !== false) {
-      $logs = $logs . "File is an image - " . $check["mime"] . ".";
+      $target_dir = "uploads/";
+      $var = "img" . $i;
+      $target_file = $target_dir . basename($_FILES[$var]["name"]);
       $uploadOk = 1;
-    } else {
-      $logs = $logs . "File is not an image.";
-      $uploadOk = 0;
-    }
+      $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    // Check if file already exists
-    if (file_exists($target_file)) {
-      $logs = $logs . "Sorry, file already exists.";
-      $uploadOk = 0;
-    }
-
-    // Check file size is less than 5mb
-    if ($_FILES[$var]["size"] > 5000000) {
-      $logs = $logs . "Sorry, your file is too large.";
-      $uploadOk = 0;
-    }
-
-    // Only Allow jpg, jpeg, png and gif file formats
-    if (
-      $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-      && $imageFileType != "gif"
-    ) {
-      $logs = $logs . "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-      $uploadOk = 0;
-    }
-
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-      $logs = $logs . "Sorry, your file was not uploaded.";
-      echo $logs;
-      // if everything is ok, try to upload file
-    } else {
-      $target_file = $target_dir . $userid . "_" . basename($_FILES[$var]["name"]);
-      if (move_uploaded_file($_FILES[$var]["tmp_name"], $target_file)) {
-        $logs = $logs . "The file " . htmlspecialchars(basename($_FILES[$var]["name"])) . " has been uploaded.";
-        $images[$i - 1] = $target_file;
+      // Check if image file is a actual image or fake image
+      $check = getimagesize($_FILES[$var]["tmp_name"]);
+      if ($check !== false) {
+        $logs = $logs . "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
       } else {
-        $logs = $logs . "Sorry, there was an error uploading your file.";
+        $logs = $logs . "File is not an image.";
+        $uploadOk = 0;
+      }
+
+      // Check if file already exists
+      if (file_exists($target_file)) {
+        $logs = $logs . "Sorry, file already exists.";
+        $uploadOk = 0;
+      }
+
+      // Check file size is less than 5mb
+      if ($_FILES[$var]["size"] > 5000000) {
+        $logs = $logs . "Sorry, your file is too large.";
+        $uploadOk = 0;
+      }
+
+      // Only Allow jpg, jpeg, png and gif file formats
+      if (
+        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif"
+      ) {
+        $logs = $logs . "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+      }
+
+      // Check if $uploadOk is set to 0 by an error
+      if ($uploadOk == 0) {
+        $logs = $logs . "Sorry, your file was not uploaded.";
         echo $logs;
+        // if everything is ok, try to upload file
+      } else {
+        $target_file = $target_dir . $userid . "_" . basename($_FILES[$var]["name"]);
+        if (move_uploaded_file($_FILES[$var]["tmp_name"], $target_file)) {
+          $logs = $logs . "The file " . htmlspecialchars(basename($_FILES[$var]["name"])) . " has been uploaded.";
+          $images[$i - 1] = $target_file;
+        } else {
+          $logs = $logs . "Sorry, there was an error uploading your file.";
+          echo $logs;
+        }
       }
     }
   }
-
   $query = "UPDATE active_listings_tbl set owner='$userid', title='$title', discription='$discription', property_type='$property_type', property_size='$property_size', property_address='$property_address', city='$city', pin='$pin', price='$price', price_format='$price_format', fname='$fname', lname='$lname', email='$email', phoneno='$phoneno', image_one='$images[0]', image_two='$images[1]', image_three='$images[2]', image_four='$images[3]' WHERE listing_id='$property_id'";
 
   if (mysqli_query($conn, $query)) {
@@ -232,7 +238,7 @@ if (isset($_POST["submit"])) {
                   <div class="row mb-3">
                     <div class="col-sm custom-file mx-3">
                       <input type="file" class="custom-file-input" id="<?php echo "constomfile" . $j ?>" name="<?php echo "img" . $j ?>">
-                      <label class="custom-file-label" for="<?php echo "constomfile" . $j ?>"><?php echo $j ?></label>
+                      <label class="custom-file-label" for="<?php echo "constomfile" . $j ?>">Choose image <?php echo $j ?></label>
                     </div>
                     <div class="col-sm custom-file mx-3">
                       <input type="file" class="custom-file-input" id="<?php echo "constomfile" . ++$j ?>" name="<?php echo "img" . $j ?>">
@@ -311,7 +317,7 @@ if (isset($_POST["submit"])) {
                     <p class="mb-0"><b>Phone Number</b></p>
                   </div>
                   <div class="col-sm">
-                    <input type="number" class="form-control contactfill" id="phone_number" min="0" placeholder="Phone No" name="phoneno" value="<?php echo $phoneno ?>">
+                    <input type="text" class="form-control contactfill" id="phone_number" min="0" placeholder="Phone No" name="phoneno" value="<?php echo $phoneno ?>">
                   </div>
                 </div>
 
