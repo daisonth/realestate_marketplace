@@ -3,7 +3,7 @@
 <?php
 include("connection.php");
 
-if (!isset($_SESSION["userid"]) && !isset($_GET["id"])) {
+if (!isset($_SESSION["userid"]) || !isset($_GET["id"])) {
   header("location: login.php");
 } else {
   $userid = $_SESSION["userid"];
@@ -29,10 +29,10 @@ if ($result->num_rows > 0) {
   $lname = $row["lname"];
   $email = $row["email"];
   $phoneno = $row["phoneno"];
-  $img1 = $row["image_one"];
-  $img2 = $row["image_two"];
-  $img3 = $row["image_three"];
-  $img4 = $row["image_four"];
+  $images[0] = $row["image_one"];
+  $images[1] = $row["image_two"];
+  $images[2] = $row["image_three"];
+  $images[3] = $row["image_four"];
 }
 
 if (isset($_POST["submit"])) {
@@ -49,16 +49,12 @@ if (isset($_POST["submit"])) {
   $phoneno = $_POST["phoneno"];
   $fname = $_POST["fname"];
   $lname = $_POST["lname"];
-  $images = array();
   $logs = "";
 
-  for ($i = 1; $i <= 4; $i++) {
-    if (!file_exists($_FILES['myfile']['tmp_name']) || !is_uploaded_file($_FILES['myfile']['tmp_name'])) {
-      echo 'No upload';
-    } else {
-
+  for ($i = 0; $i < 4; $i++) {
+    $var = "img" . $i;
+    if (file_exists($_FILES[$var]['name']) || is_uploaded_file($_FILES[$var]['tmp_name'])) {
       $target_dir = "uploads/";
-      $var = "img" . $i;
       $target_file = $target_dir . basename($_FILES[$var]["name"]);
       $uploadOk = 1;
       $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -76,6 +72,7 @@ if (isset($_POST["submit"])) {
       // Check if file already exists
       if (file_exists($target_file)) {
         $logs = $logs . "Sorry, file already exists.";
+        $images[$i] = "";
         $uploadOk = 0;
       }
 
@@ -103,14 +100,21 @@ if (isset($_POST["submit"])) {
         $target_file = $target_dir . $userid . "_" . basename($_FILES[$var]["name"]);
         if (move_uploaded_file($_FILES[$var]["tmp_name"], $target_file)) {
           $logs = $logs . "The file " . htmlspecialchars(basename($_FILES[$var]["name"])) . " has been uploaded.";
-          $images[$i - 1] = $target_file;
+          if ($images[$i] != "") {
+            unlink($images[$i]);
+          }
+          $images[$i] = $target_file;
         } else {
           $logs = $logs . "Sorry, there was an error uploading your file.";
           echo $logs;
         }
       }
     }
+    // else {
+    //   echo "no image $i, ";
+    // }
   }
+
   $query = "UPDATE active_listings_tbl set owner='$userid', title='$title', discription='$discription', property_type='$property_type', property_size='$property_size', property_address='$property_address', city='$city', pin='$pin', price='$price', price_format='$price_format', fname='$fname', lname='$lname', email='$email', phoneno='$phoneno', image_one='$images[0]', image_two='$images[1]', image_three='$images[2]', image_four='$images[3]' WHERE listing_id='$property_id'";
 
   if (mysqli_query($conn, $query)) {
@@ -128,11 +132,11 @@ if (isset($_POST["submit"])) {
       <div class="row">
         <div class="col">
           <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-            <h2 class="text-center">List Property For Sale</h2>
+            <h2 class="text-center">Edit Property Details</h2>
           </nav>
         </div>
       </div>
-      <form action="sell.php" method="post" enctype="multipart/form-data">
+      <form action="edit_listing.php?id=<?php echo $property_id ?>" method="post" enctype="multipart/form-data">
         <h4>Property Details</h4>
         <div class="col-188">
           <div class="card mb-4">
@@ -234,15 +238,15 @@ if (isset($_POST["submit"])) {
             <div class="card mb-4">
               <div class="card-body">
 
-                <?php for ($j = 1; $j <= 4; $j++) { ?>
+                <?php for ($j = 0; $j < 4; $j++) { ?>
                   <div class="row mb-3">
                     <div class="col-sm custom-file mx-3">
                       <input type="file" class="custom-file-input" id="<?php echo "constomfile" . $j ?>" name="<?php echo "img" . $j ?>">
-                      <label class="custom-file-label" for="<?php echo "constomfile" . $j ?>">Choose image <?php echo $j ?></label>
+                      <label class="custom-file-label" for="<?php echo "constomfile" . $j ?>"><?php echo $images[$j] ?></label>
                     </div>
                     <div class="col-sm custom-file mx-3">
                       <input type="file" class="custom-file-input" id="<?php echo "constomfile" . ++$j ?>" name="<?php echo "img" . $j ?>">
-                      <label class="custom-file-label" for="<?php echo "constomfile" . $j ?>">Choose image <?php echo $j ?></label>
+                      <label class="custom-file-label" for="<?php echo "constomfile" . $j ?>"><?php echo $images[$j] ?></label>
                     </div>
                   </div>
                 <?php } ?>
@@ -337,7 +341,7 @@ if (isset($_POST["submit"])) {
 
         </div>
         <div class="amado-btn-group mt-30 mb-100 float-right">
-          <input type="submit" class="btn amado-btn mb-15" name="submit" value="submit">
+          <input type="submit" class="btn amado-btn mb-15" name="submit" value="SAVE">
         </div>
       </form>
     </div>
@@ -346,7 +350,6 @@ if (isset($_POST["submit"])) {
 
 <script type="text/javascript">
   const custom_file_input = document.querySelectorAll(".custom-file-input");
-
   custom_file_input.forEach((i) => i.addEventListener("change", fileup));
 
   function fileup() {

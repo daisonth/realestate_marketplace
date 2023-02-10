@@ -19,3 +19,19 @@
   max-height: 600px;
   object-fit: contain;
 }
+
+.row {
+  justify-content: center;
+}
+
+.cart_product_img {
+  object-fit: contain;
+  height: auto;
+}
+
+.f1, tr, th {
+  flex: unset;
+  max-width: unset;
+
+}
+

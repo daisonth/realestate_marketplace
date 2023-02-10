@@ -59,7 +59,7 @@ if ($result->num_rows > 0) {
           <!-- product meta data -->
           <div class="product-meta-data">
             <div class="line"></div>
-            <p class="product-price"><?php echo $row["price"] . " " . $row["price_format"] ?></p>
+            <p class="product-price">₹<?php echo $row["price"] . " " . $row["price_format"] ?></p>
             <h4><?php echo $row["title"] ?></h4>
             <!-- Avaiable -->
             <p class="avaibility"><i class="fa fa-circle"></i> <?php echo $row["status"] ?></p>

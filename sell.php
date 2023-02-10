@@ -23,8 +23,8 @@ $phoneno = "";
 $fname = "";
 $lname = "";
 
-$query = "SELECT firstname,lastname,email,phoneno FROM users_tbl WHERE userid='$userid';";
-$result = mysqli_query($conn, $query);
+$query1 = "SELECT firstname,lastname,email,phoneno FROM users_tbl WHERE userid='$userid';";
+$result = mysqli_query($conn, $query1);
 if ($result->num_rows > 0) {
   $row = mysqli_fetch_row($result);
   $fname = $row[0];
@@ -43,10 +43,10 @@ if (isset($_POST["submit"])) {
   $pin = $_POST["pin"];
   $price = $_POST["price"];
   $price_format = $_POST["price_format"];
-  $email = $_POST["email"];
-  $phoneno = $_POST["phoneno"];
-  $fname = $_POST["fname"];
-  $lname = $_POST["lname"];
+  if (isset($_POST["email"])) $email = $_POST["email"];
+  if (isset($_POST["phoneno"])) $phoneno = $_POST["phoneno"];
+  if (isset($_POST["fname"])) $fname = $_POST["fname"];
+  if (isset($_POST["lname"])) $lname = $_POST["lname"];
   $images = array();
   $logs = "";
 
@@ -106,11 +106,10 @@ if (isset($_POST["submit"])) {
   }
 
   $query = "INSERT INTO active_listings_tbl(`owner`,`title`, `discription`, `property_type`, `property_size`,
-  `property_address`, `city`, `pin`, `price`, `price_format`, `fname`, `lname`, `email`, `phoneno`, 
-  `image_one`, `image_two`, `image_three`, `image_four`) 
-  VALUES (`$userid`,'$title','$discription','$property_type','$property_size','$property_address','$city','$pin',
-  '$price','$price_format','$fname','$lname','$email','$phoneno','$images[0]','$images[1]','$images[2]',
-  '$images[3]')";
+`property_address`, `city`, `pin`, `price`, `price_format`, `fname`, `lname`, `email`, `phoneno`, `image_one`, 
+`image_two`, `image_three`, `image_four`) VALUES ('$userid','$title','$discription','$property_type',
+'$property_size','$property_address','$city','$pin', '$price','$price_format','$fname','$lname','$email',
+'$phoneno','$images[0]','$images[1]','$images[2]', '$images[3]')";
 
   if (mysqli_query($conn, $query)) {
     header("location: index.php");
