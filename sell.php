@@ -12,12 +12,14 @@ if (!isset($_SESSION["userid"])) {
 $title = "";
 $discription = "";
 $property_type = "";
-$property_size = "";
+$size = "";
+$size_format = "";
 $property_address = "";
 $city = "";
+$state = "";
 $pin = "";
 $price = "";
-$price_format = "";
+$denomination = "";
 $email = "";
 $phoneno = "";
 $fname = "";
@@ -37,16 +39,18 @@ if (isset($_POST["submit"])) {
   $title = $_POST["title"];
   $discription = $_POST["discription"];
   $property_type = $_POST["property_type"];
-  $property_size = $_POST["property_size"];
+  $size = $_POST["size"];
+  $size_format = $_POST["size_format"];
   $property_address = $_POST["address"];
   $city = $_POST["city"];
   $pin = $_POST["pin"];
   $price = $_POST["price"];
-  $price_format = $_POST["price_format"];
+  $denomination = $_POST["denomination"];
   if (isset($_POST["email"])) $email = $_POST["email"];
   if (isset($_POST["phoneno"])) $phoneno = $_POST["phoneno"];
   if (isset($_POST["fname"])) $fname = $_POST["fname"];
   if (isset($_POST["lname"])) $lname = $_POST["lname"];
+  $date = date('y-m-d');
   $images = array();
   $logs = "";
 
@@ -104,12 +108,11 @@ if (isset($_POST["submit"])) {
       }
     }
   }
-
-  $query = "INSERT INTO active_listings_tbl(`owner`,`title`, `discription`, `property_type`, `property_size`,
-`property_address`, `city`, `pin`, `price`, `price_format`, `fname`, `lname`, `email`, `phoneno`, `image_one`, 
-`image_two`, `image_three`, `image_four`) VALUES ('$userid','$title','$discription','$property_type',
-'$property_size','$property_address','$city','$pin', '$price','$price_format','$fname','$lname','$email',
-'$phoneno','$images[0]','$images[1]','$images[2]', '$images[3]')";
+  $query = "INSERT INTO active_listings_tbl(`owner_id`,`title`, `discription`, `property_type`, `size`, `size_format`,
+`property_address`, `city`, `pin`, `price`, `denomination`, `fname`, `lname`, `email`, `phoneno`, `image_one`, 
+`image_two`, `image_three`, `image_four`, `date`) VALUES ('$userid','$title','$discription','$property_type',
+'$size','$size_format','$property_address','$city','$pin', '$price','$denomination','$fname','$lname','$email',
+'$phoneno','$images[0]','$images[1]','$images[2]', '$images[3]','$date')";
 
   if (mysqli_query($conn, $query)) {
     header("location: index.php");
@@ -178,8 +181,17 @@ if (isset($_POST["submit"])) {
                 <div class="col-sm">
                   <p class="mb-0"><b>Size Details</b></p>
                 </div>
-                <div class="col-sm">
-                  <input type="text" class="form-control" id="property_size" placeholder="Size Details" name="property_size" value="<?php echo $property_size ?>" required>
+                <div class="col-sm" style="max-width: 30%;">
+                  <input type="number" class="form-control" id="size" placeholder="Size Details" name="size" value="<?php echo $size ?>" required>
+                </div>
+                <div class="col-sm" style="max-width: 20%;">
+                  <select class="form-select w-100" name="size_format" value="<?php echo $size_format ?>" required>
+                    <option value="cent">Per Cent</option>
+                    <option value="sqrft">Sqrft</option>
+                    <option value="acres">Acres</option>
+                    <option value="bhk">BHK</option>
+                    <option value="hector">Hector</option>
+                  </select>
                 </div>
               </div>
 
@@ -213,6 +225,22 @@ if (isset($_POST["submit"])) {
                 </div>
               </div>
 
+              <hr>
+              <div class="row">
+                <div class="col-sm">
+                  <p class="mb-0"><b>Total Price</b></p>
+                </div>
+                <div class="col-sm" style="max-width: 30%;">
+                  <input type="number" class="form-control" id="price" step="any" value="<?php echo $price ?>" placeholder="Price" name="price" required>
+                </div>
+                <div class="col-sm" style="max-width: 20%;">
+                  <select class="form-select w-100" name="denomination" value="<?php echo $denomination ?>" required>
+                    <option value="lk">Lakhs</option>
+                    <option value="cr">Crore</option>
+                  </select>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -228,43 +256,11 @@ if (isset($_POST["submit"])) {
                       <label class="custom-file-label" for="<?php echo "constomfile" . $j ?>">Choose image <?php echo $j ?></label>
                     </div>
                     <div class="col-sm custom-file mx-3">
-                      <input type="file" class="custom-file-input" id="<?php echo "constomfile" . ++$j ?>" name="<?php echo "img" . $j ?>">
+                      <input type="file" class="custom-file-input" id="<?php echo "constomfile" . ++$j ?>" name="<?php echo "img" . $j ?>" required>
                       <label class="custom-file-label" for="<?php echo "constomfile" . $j ?>">Choose image <?php echo $j ?></label>
                     </div>
                   </div>
                 <?php } ?>
-
-              </div>
-            </div>
-          </div>
-
-          <h4>Price Details</h4>
-          <div class="col-188">
-            <div class="card mb-4">
-              <div class="card-body">
-
-                <div class="row">
-                  <div class="col-sm">
-                    <p class="mb-0"><b>Price</b></p>
-                  </div>
-                  <div class="col-sm">
-                    <input type="text" class="form-control" id="price" value="<?php echo $price ?>" placeholder="Price" name="price">
-                  </div>
-                </div>
-
-                <hr>
-                <div class="row">
-                  <div class="col-sm">
-                    <p class="mb-0"><b>Price Format</b></p>
-                  </div>
-                  <div class="col-sm">
-
-                    <select class="form-select w-100" name="price_format" value="<?php echo $price_format ?>">
-                      <option value="Per Cent">Per Cent</option>
-                      <option value="Total Price">Total Price</option>
-                    </select>
-                  </div>
-                </div>
 
               </div>
             </div>

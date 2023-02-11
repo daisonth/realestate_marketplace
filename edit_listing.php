@@ -19,12 +19,13 @@ if ($result->num_rows > 0) {
   $title = $row["title"];
   $discription = $row["discription"];
   $property_type = $row["property_type"];
-  $property_size = $row["property_size"];
+  $size = $row["size"];
+  $size_format = $row["size_format"];
   $property_address = $row["property_address"];
   $city = $row["city"];
   $pin = $row["pin"];
   $price = $row["price"];
-  $price_format = $row["price_format"];
+  $denomination = $row["denomination"];
   $fname = $row["fname"];
   $lname = $row["lname"];
   $email = $row["email"];
@@ -39,12 +40,13 @@ if (isset($_POST["submit"])) {
   $title = $_POST["title"];
   $discription = $_POST["discription"];
   $property_type = $_POST["property_type"];
-  $property_size = $_POST["property_size"];
+  $size = $_POST["size"];
+  $size_format = $_POST["size_format"];
   $property_address = $_POST["address"];
   $city = $_POST["city"];
   $pin = $_POST["pin"];
   $price = $_POST["price"];
-  $price_format = $_POST["price_format"];
+  $denomination = $_POST["denomination"];
   $email = $_POST["email"];
   $phoneno = $_POST["phoneno"];
   $fname = $_POST["fname"];
@@ -115,7 +117,7 @@ if (isset($_POST["submit"])) {
     // }
   }
 
-  $query = "UPDATE active_listings_tbl set owner='$userid', title='$title', discription='$discription', property_type='$property_type', property_size='$property_size', property_address='$property_address', city='$city', pin='$pin', price='$price', price_format='$price_format', fname='$fname', lname='$lname', email='$email', phoneno='$phoneno', image_one='$images[0]', image_two='$images[1]', image_three='$images[2]', image_four='$images[3]' WHERE listing_id='$property_id'";
+  $query = "UPDATE active_listings_tbl set owner_id='$userid', title='$title', discription='$discription', property_type='$property_type', size='$size', size_format='$size_format', property_address='$property_address', city='$city', pin='$pin', price='$price', denomination='$denomination', fname='$fname', lname='$lname', email='$email', phoneno='$phoneno', image_one='$images[0]', image_two='$images[1]', image_three='$images[2]', image_four='$images[3]' WHERE listing_id='$property_id'";
 
   if (mysqli_query($conn, $query)) {
     header("location: property_details.php?id=$property_id");
@@ -195,8 +197,27 @@ if (isset($_POST["submit"])) {
                 <div class="col-sm">
                   <p class="mb-0"><b>Size Details</b></p>
                 </div>
-                <div class="col-sm">
-                  <input type="text" class="form-control" id="property_size" placeholder="Size Details" name="property_size" value="<?php echo $property_size ?>" required>
+                <div class="col-sm" style="max-width: 30%;">
+                  <input type="number" class="form-control" id="size" placeholder="Size Details" name="size" value="<?php echo $size ?>" required>
+                </div>
+                <div class="col-sm" style="max-width: 20%;">
+                  <select class="form-select w-100" name="size_format" required>
+                    <option <?php if ($size_format == "Cent") {
+                              echo "selected";
+                            } ?> value="Cent">Per Cent</option>
+                    <option <?php if ($size_format == "sqft") {
+                              echo "selected";
+                            } ?> value="Sqrft">Sqrft</option>
+                    <option <?php if ($size_format == "Acres") {
+                              echo "selected";
+                            } ?> value="Acres">Acres</option>
+                    <option <?php if ($size_format == "bhk") {
+                              echo "selected";
+                            } ?> value="bhk">BHK</option>
+                    <option <?php if ($size_format == "Hector") {
+                              echo "selected";
+                            } ?> value="Hector">Hector</option>
+                  </select>
                 </div>
               </div>
 
@@ -230,6 +251,26 @@ if (isset($_POST["submit"])) {
                 </div>
               </div>
 
+              <hr>
+              <div class="row">
+                <div class="col-sm">
+                  <p class="mb-0"><b>Total Price</b></p>
+                </div>
+                <div class="col-sm" style="max-width: 30%;">
+                  <input type="number" class="form-control" id="price" value="<?php echo $price ?>" placeholder="Price" name="price" required>
+                </div>
+                <div class="col-sm" style="max-width: 20%;">
+                  <select class="form-select w-100" name="denomination" value="<?php echo $denomination ?>" required>
+                    <option <?php if ($denomination == "lk") {
+                              echo "selected";
+                            } ?> value="lk">Lakhs</option>
+                    <option <?php if ($denomination == "cr") {
+                              echo "selected";
+                            } ?> value="cr">Crore</option>
+                  </select>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -250,42 +291,6 @@ if (isset($_POST["submit"])) {
                     </div>
                   </div>
                 <?php } ?>
-
-              </div>
-            </div>
-          </div>
-
-          <h4>Price Details</h4>
-          <div class="col-188">
-            <div class="card mb-4">
-              <div class="card-body">
-
-                <div class="row">
-                  <div class="col-sm">
-                    <p class="mb-0"><b>Price</b></p>
-                  </div>
-                  <div class="col-sm">
-                    <input type="text" class="form-control" id="price" value="<?php echo $price ?>" placeholder="Price" name="price">
-                  </div>
-                </div>
-
-                <hr>
-                <div class="row">
-                  <div class="col-sm">
-                    <p class="mb-0"><b>Price Format</b></p>
-                  </div>
-                  <div class="col-sm">
-
-                    <select class="form-select w-100" name="price_format">
-                      <option <?php if ($price_format  == "Per Cent") {
-                                echo "selected";
-                              } ?>value="Per Cent">Per Cent</option>
-                      <option <?php if ($price_format  == "Total Price") {
-                                echo "selected";
-                              } ?>value="Total Price">Total Price</option>
-                    </select>
-                  </div>
-                </div>
 
               </div>
             </div>

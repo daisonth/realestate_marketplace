@@ -70,10 +70,10 @@ error_reporting(E_ALL);
       <nav class="amado-nav">
         <ul class="nav-list">
           <li><a href="index.php" class="fav-nav"><img src="img/core-img/home.png" alt=""> Home</a></li>
-          
+
           <li><a href="shop.php" class="fav-nav"><img src="img/core-img/shopping.png" alt=""> Shop</a></li>
           <li><a href="sell.php" class="fav-nav"><img src="img/core-img/sell.png" alt=""> Sell</a></li>
-          <li><a href="cart.php" class="fav-nav"><img src="img/core-img/star.png" alt=""> Favourite</a></li>
+          <li><a href="cart.php" class="fav-nav"><img src="img/core-img/star_off.png" alt=""> My WishList</a></li>
           <?php if (isset($_SESSION["userid"])) { ?>
             <li><a href="my_listings.php" class="fav-nav"><img src="img/core-img/listings.png" alt=""> My Listings</a></li>
             <li><a href="user_account.php" class="fav-nav"><img src="img/core-img/user.png" alt=""> <?php echo $_SESSION["fname"] ?></a></li>

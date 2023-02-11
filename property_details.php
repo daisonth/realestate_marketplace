@@ -59,7 +59,7 @@ if ($result->num_rows > 0) {
           <!-- product meta data -->
           <div class="product-meta-data">
             <div class="line"></div>
-            <p class="product-price">₹<?php echo $row["price"] . " " . $row["price_format"] ?></p>
+            <p class="product-price">₹<?php echo $row["price"] . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
             <h4><?php echo $row["title"] ?></h4>
             <!-- Avaiable -->
             <p class="avaibility"><i class="fa fa-circle"></i> <?php echo $row["status"] ?></p>
@@ -72,12 +72,12 @@ if ($result->num_rows > 0) {
           <!-- Add to Cart Form -->
           <div class="short_overview my-5">
             <p><b>Property Type : </b> <?php echo $row["property_type"] ?></p>
-            <p><b>Property Size : </b> <?php echo $row["property_size"] ?></p>
+            <p><b>Property Size : </b> <?php echo $row["size"] . " " . $row["size_format"] ?></p>
             <p><b>Location : </b> <?php echo $row["property_address"] ?></p>
             <p><b>City : </b> <?php echo $row["city"] ?></p>
             <p><b>Area Zipcode : </b> <?php echo $row["pin"] ?></p>
 
-            <?php if ($row["owner"] == $userid) { ?>
+            <?php if ($row["owner_id"] == $userid) { ?>
               <div class="amado-btn-group mt-30 mb-100">
                 <a href="edit_listing.php?id=<?php echo $property_id ?>" class="btn amado-btn mb-15"> EDIT LISTING</a>
               </div>

@@ -8,10 +8,21 @@ if (!isset($_SESSION["userid"])) {
   $userid = $_SESSION["userid"];
 }
 
-$query = "SELECT * FROM active_listings_tbl";
-$result = mysqli_query($conn, $query);
-?>
+$low =  ((isset($_GET["low"])) ? $_GET["low"] : 0);
+$sort = ((isset($_GET["sort"])) ? $_GET["sort"] : "date");
+$order = ((isset($_GET["order"])) ? $_GET["order"] : "ASC");
+$view = ((isset($_GET["view"])) ? $_GET["view"] : "10");
 
+$query = "SELECT * FROM active_listings_tbl ORDER BY $sort $order LIMIT $low," . $low + $view;
+if (!($result = mysqli_query($conn, $query))) {
+  header("location: shop.php");
+}
+
+$query2 = "SELECT COUNT(listing_id) FROM `active_listings_tbl` WHERE status='active'";
+$result2 = mysqli_query($conn, $query2);
+$row2 = mysqli_fetch_array($result2);
+$rnum = $row2[0];
+?>
 
 <div class="shop_sidebar_area">
 
@@ -93,28 +104,27 @@ $result = mysqli_query($conn, $query);
         <div class="product-topbar d-xl-flex align-items-end justify-content-between">
           <!-- Total Products -->
           <div class="total-products">
-            <p>Showing 1-8 0f 25</p>
+            <p>Showing <?php echo (($view < $rnum) ? $view : $rnum) ?> 0f <?php echo $rnum ?></p>
           </div>
           <!-- Sorting -->
           <div class="product-sorting d-flex">
             <div class="sort-by-date d-flex align-items-center mr-15">
               <p>Sort by</p>
               <form action="#" method="get">
-                <select name="select" id="sortBydate">
-                  <option value="value">Date</option>
-                  <option value="value">Price: Low to High</option>
-                  <option value="value">Price: High to Low</option>
+                <select name="select" id="sortBydate" onchange="location = this.value;">
+                  <option <?php if ($sort == "date") echo "selected" ?> value="shop.php?view=<?php echo $view ?>&order=<?php echo $order ?>&sort=date">Date</option>
+                  <option <?php if ($sort == "price" && $order == "ASC") echo "selected" ?> value="shop.php?view=<?php echo $view ?>&sort=price&order=ASC">Price: Low to High</option>
+                  <option <?php if ($sort == "price" && $order == "DESC") echo "selected" ?> value="shop.php?view=<?php echo $view ?>&sort=price&order=DESC">Price: High to Low</option>
                 </select>
               </form>
             </div>
             <div class="view-product d-flex align-items-center">
               <p>View</p>
               <form action="#" method="get">
-                <select name="select" id="viewProduct">
-                  <option value="value">10</option>
-                  <option value="value">20</option>
-                  <option value="value">40</option>
-                  <option value="value">80</option>
+                <select name="select" id="viewProduct" onchange="location = this.value;">
+                  <option <?php if ($view == "10") echo "selected" ?> value="shop.php?sort=<?php echo $sort ?>&order=<?php echo $order ?>&view=10">10</option>
+                  <option <?php if ($view == "20") echo "selected" ?> value="shop.php?sort=<?php echo $sort ?>&order=<?php echo $order ?>&view=20">20</option>
+                  <option <?php if ($view == "40") echo "selected" ?> value="shop.php?sort=<?php echo $sort ?>&order=<?php echo $order ?>&view=40">40</option>
                 </select>
               </form>
             </div>
@@ -122,7 +132,6 @@ $result = mysqli_query($conn, $query);
         </div>
       </div>
     </div>
-
 
     <div class="row">
       <?php while ($row = mysqli_fetch_assoc($result)) { ?>
@@ -133,9 +142,9 @@ $result = mysqli_query($conn, $query);
             <!-- Product Image -->
             <a href="property_details.php?id=<?php echo $row["listing_id"] ?>">
               <div class="product-img">
-                <img src="<?php echo $row["image_one"] ?>" alt="">
+                <img class="pimg" src="<?php echo $row["image_one"] ?>" alt="">
                 <!-- Hover Thumb -->
-                <img class="hover-img" src="<?php echo $row["image_two"] ?>" alt="">
+                <img class="pimg hover-img" src="<?php echo $row["image_two"] ?>" alt="">
               </div>
             </a>
 
@@ -154,15 +163,16 @@ $result = mysqli_query($conn, $query);
               <!-- Ratings & Cart -->
               <div class="ratings-cart text-right">
                 <div class="product-meta-data">
-                  <p class="product-price product-price-c">₹<?php echo $row["price"] . " <br>" . $row["price_format"] ?></p>
+                  <p class="product-price product-price-c">₹<?php echo $row["price"] . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
                 </div>
                 <div class="cart">
-                  <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add To Wishlist"><img src="img/core-img/star.png" alt=""></a>
+                  <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add To Wishlist"><img src="img/core-img/star_off.png" alt="" class="star"></a>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
       <?php } ?>
     </div>
     <div class="row">
@@ -170,10 +180,9 @@ $result = mysqli_query($conn, $query);
         <!-- Pagination -->
         <nav aria-label="navigation">
           <ul class="pagination justify-content-end mt-50">
-            <li class="page-item active"><a class="page-link" href="#">01.</a></li>
-            <li class="page-item"><a class="page-link" href="#">02.</a></li>
-            <li class="page-item"><a class="page-link" href="#">03.</a></li>
-            <li class="page-item"><a class="page-link" href="#">04.</a></li>
+            <div class="amado-btn-group mt-30 mb-100">
+              <a href="shop.php?sort=<?php echo $sort ?>&order=<?php echo $order ?>&view=<?php echo $view ?>&low=<?php echo (($view > $rnum) ? 0 : ($low + $view)); ?>" class="btn amado-btn mb-15"> NEXT ></a>
+            </div>
           </ul>
         </nav>
       </div>
@@ -182,5 +191,12 @@ $result = mysqli_query($conn, $query);
 </div>
 </div>
 <!-- ##### Main Content Wrapper End ##### -->
+
+<script type="text/javascript">
+  const star = document.querySelector(`.star`);
+  star.addEventListener(`click`, function() {
+    star.src = `img/core-img/star_on.png`;
+  });
+</script>
 
 <?php include("footer.php"); ?>

@@ -99,7 +99,7 @@ if (isset($_SESSION["userid"])) {
                   <p class="mb-0"><b>Phone</b></p>
                 </div>
                 <div class="col-sm">
-                  <input type="number" class="form-control" id="phone_number" min="0" placeholder="Phone No" name="phoneno" value="<?php echo $phoneno ?>" required>
+                  <input type="text" class="form-control" id="phone_number" min="0" placeholder="Phone No" name="phoneno" value="<?php echo $phoneno ?>" required>
                 </div>
               </div>
 

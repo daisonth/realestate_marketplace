@@ -8,7 +8,7 @@ if (!isset($_SESSION["userid"])) {
   $userid = $_SESSION["userid"];
 }
 
-$query = "SELECT * FROM active_listings_tbl WHERE owner='$userid'";
+$query = "SELECT * FROM active_listings_tbl WHERE owner_id='$userid'";
 $result = mysqli_query($conn, $query);
 ?>
 
@@ -42,7 +42,7 @@ $result = mysqli_query($conn, $query);
                     <a href="property_details.php?id=<?php echo $row["listing_id"] ?>">view</a>
                   </td>
                   <td class="price">
-                    <p>₹<?php echo $row["price"] ?></p>
+                    <p>₹<?php echo $row["price"] . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
                   </td>
                   <td class="qty">
                     <span><?php echo strtoupper($row["status"]) ?> <a href="switch_status.php?id=<?php echo $row["listing_id"] ?>"><img src="img/core-img/rotate.png"></a></span>
