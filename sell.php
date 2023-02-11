@@ -260,8 +260,8 @@ if (isset($_POST["submit"])) {
                   <div class="col-sm">
 
                     <select class="form-select w-100" name="price_format" value="<?php echo $price_format ?>">
-                      <option value="per cent">Per Cent</option>
-                      <option value="total price">Total Price</option>
+                      <option value="Per Cent">Per Cent</option>
+                      <option value="Total Price">Total Price</option>
                     </select>
                   </div>
                 </div>

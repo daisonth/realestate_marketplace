@@ -11,7 +11,7 @@
         <!-- Hover Content -->
         <div class="hover-content">
           <div class="line"></div>
-          <p>From $180</p>
+          <p>From ₹180</p>
           <h4>Modern Chair</h4>
         </div>
       </a>
@@ -24,7 +24,7 @@
         <!-- Hover Content -->
         <div class="hover-content">
           <div class="line"></div>
-          <p>From $190</p>
+          <p>From ₹190</p>
           <h4>Minimalistic Plant Pot</h4>
         </div>
       </a>
@@ -37,7 +37,7 @@
         <!-- Hover Content -->
         <div class="hover-content">
           <div class="line"></div>
-          <p>From $180</p>
+          <p>From ₹180</p>
           <h4>Modern Chair</h4>
         </div>
       </a>
@@ -50,7 +50,7 @@
         <!-- Hover Content -->
         <div class="hover-content">
           <div class="line"></div>
-          <p>From $180</p>
+          <p>From ₹180</p>
           <h4>Night Stand</h4>
         </div>
       </a>
@@ -63,7 +63,7 @@
         <!-- Hover Content -->
         <div class="hover-content">
           <div class="line"></div>
-          <p>From $18</p>
+          <p>From ₹18</p>
           <h4>Plant Pot</h4>
         </div>
       </a>
@@ -76,7 +76,7 @@
         <!-- Hover Content -->
         <div class="hover-content">
           <div class="line"></div>
-          <p>From $320</p>
+          <p>From ₹320</p>
           <h4>Small Table</h4>
         </div>
       </a>
@@ -89,7 +89,7 @@
         <!-- Hover Content -->
         <div class="hover-content">
           <div class="line"></div>
-          <p>From $318</p>
+          <p>From ₹318</p>
           <h4>Metallic Chair</h4>
         </div>
       </a>
@@ -102,7 +102,7 @@
         <!-- Hover Content -->
         <div class="hover-content">
           <div class="line"></div>
-          <p>From $318</p>
+          <p>From ₹318</p>
           <h4>Modern Rocking Chair</h4>
         </div>
       </a>
@@ -115,7 +115,7 @@
         <!-- Hover Content -->
         <div class="hover-content">
           <div class="line"></div>
-          <p>From $318</p>
+          <p>From ₹318</p>
           <h4>Home Deco</h4>
         </div>
       </a>

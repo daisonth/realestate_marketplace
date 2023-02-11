@@ -32,6 +32,23 @@
 .f1, tr, th {
   flex: unset;
   max-width: unset;
-
 }
 
+.product-img {
+  min-height: auto;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.product-price-c {
+  text-align: right;
+  font-size: 20px;
+}
+
+.title-p {
+  line-height: 1.1;
+}
+
+.footer_area {
+  padding: 0;
+}

@@ -277,12 +277,12 @@ if (isset($_POST["submit"])) {
                   <div class="col-sm">
 
                     <select class="form-select w-100" name="price_format">
-                      <option <?php if ($price_format  == "per cent") {
+                      <option <?php if ($price_format  == "Per Cent") {
                                 echo "selected";
-                              } ?>value="per cent">Per Cent</option>
-                      <option <?php if ($price_format  == "total price") {
+                              } ?>value="Per Cent">Per Cent</option>
+                      <option <?php if ($price_format  == "Total Price") {
                                 echo "selected";
-                              } ?>value="total price">Total Price</option>
+                              } ?>value="Total Price">Total Price</option>
                     </select>
                   </div>
                 </div>

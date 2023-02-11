@@ -131,26 +131,33 @@ $result = mysqli_query($conn, $query);
         <div class="col-12 col-sm-6 col-md-12 col-xl-6">
           <div class="single-product-wrapper">
             <!-- Product Image -->
-            <div class="product-img">
-              <img src="<?php echo $row["image_one"] ?>" alt="">
-              <!-- Hover Thumb -->
-              <img class="hover-img" src="<?php echo $row["image_two"] ?>" alt="">
-            </div>
+            <a href="property_details.php?id=<?php echo $row["listing_id"] ?>">
+              <div class="product-img">
+                <img src="<?php echo $row["image_one"] ?>" alt="">
+                <!-- Hover Thumb -->
+                <img class="hover-img" src="<?php echo $row["image_two"] ?>" alt="">
+              </div>
+            </a>
 
             <!-- Product Description -->
             <div class="product-description d-flex align-items-center justify-content-between">
               <!-- Product Meta Data -->
               <div class="product-meta-data">
                 <div class="line"></div>
-                <p class="product-price">₹<?php echo $row["price"] . " " . $row["price_format"] ?></p>
+                <a href="property_details.php?id=<?php echo $row["listing_id"] ?>">
+                  <p class="title-p"><?php echo $row["title"] ?></p>
+                </a>
                 <a href="property_details.php?id=<?php echo $row["listing_id"] ?>">
                   <h6><?php echo $row["city"] ?></h6>
                 </a>
               </div>
               <!-- Ratings & Cart -->
               <div class="ratings-cart text-right">
+                <div class="product-meta-data">
+                  <p class="product-price product-price-c">₹<?php echo $row["price"] . " <br>" . $row["price_format"] ?></p>
+                </div>
                 <div class="cart">
-                  <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="img/core-img/star.png" alt=""></a>
+                  <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add To Wishlist"><img src="img/core-img/star.png" alt=""></a>
                 </div>
               </div>
             </div>
