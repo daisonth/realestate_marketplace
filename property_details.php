@@ -8,7 +8,7 @@ $userid = "";
 if (isset($_SESSION["userid"])) {
   $userid = $_SESSION["userid"];
 }
-$query = "SELECT * FROM active_listings_tbl WHERE listing_id='$property_id'";
+$query = "SELECT * FROM property_tbl WHERE property_id='$property_id'";
 $result = mysqli_query($conn, $query);
 if ($result->num_rows > 0) {
   $row = mysqli_fetch_assoc($result);

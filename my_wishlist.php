@@ -8,7 +8,8 @@ if (!isset($_SESSION["userid"])) {
   $userid = $_SESSION["userid"];
 }
 
-$query = "SELECT * FROM property_tbl WHERE owner_id='$userid'";
+// $query = "SELECT * FROM property_tbl WHERE owner_id='$userid'";
+$query = "SELECT t1.* FROM property_tbl AS t1 INNER JOIN wishlist_tbl AS t2 ON t1.property_id = t2.property_id WHERE t2.user_id='$userid'";
 $result = mysqli_query($conn, $query);
 ?>
 
@@ -17,7 +18,7 @@ $result = mysqli_query($conn, $query);
     <div class="row">
       <div class="f1 col-12 col-lg-8">
         <div class="cart-title mt-50">
-          <h2>Your Listings</h2>
+          <h2>Your Wishlist</h2>
         </div>
 
         <div class="cart-table clearfix">
@@ -45,10 +46,10 @@ $result = mysqli_query($conn, $query);
                     <p>₹<?php echo $row["price"] . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
                   </td>
                   <td class="qty">
-                    <span><?php echo strtoupper($row["status"]) ?> <a href="switch_status.php?id=<?php echo $row["property_id"] ?>"><img src="img/core-img/rotate.png"></a></span>
+                    <span><?php echo strtoupper($row["status"]) ?></span>
                   </td>
                   <td class="qty">
-                    <a href="remove_listing.php?id=<?php echo $row["property_id"] ?>" data-toggle="tooltip" data-placement="left" title="Delete"><img class="bin" src="img/core-img/bin_black.png"></a>
+                    <a href="wishlist.php?id=<?php echo $row["property_id"] ?>" data-toggle="tooltip" data-placement="left" title="Remove"><img class="daas-star" src="img/core-img/star_on.png" alt="" class="star"></a>
                   </td>
                 </tr>
               <?php } ?>
@@ -60,6 +61,5 @@ $result = mysqli_query($conn, $query);
   </div>
 </div>
 <!-- ##### Main Content Wrapper End ##### -->
-
 
 <?php include("footer.php"); ?>

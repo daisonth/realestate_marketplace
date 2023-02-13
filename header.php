@@ -13,7 +13,7 @@ error_reporting(E_ALL);
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@45,300,0,6" />
-  <title>Online Real Estate Shop | Home</title>
+  <title>DAAS Real Estate's</title>
 
   <link rel="icon" href="img/core-img/favicon.ico">
   <link rel="stylesheet" href="css/core-style.css">
@@ -73,7 +73,7 @@ error_reporting(E_ALL);
 
           <li><a href="shop.php" class="fav-nav"><img src="img/core-img/shopping.png" alt=""> Shop</a></li>
           <li><a href="sell.php" class="fav-nav"><img src="img/core-img/sell.png" alt=""> Sell</a></li>
-          <li><a href="cart.php" class="fav-nav"><img src="img/core-img/star_off.png" alt=""> My WishList</a></li>
+          <li><a href="my_wishlist.php" class="fav-nav"><img src="img/core-img/star_off.png" alt=""> My WishList</a></li>
           <?php if (isset($_SESSION["userid"])) { ?>
             <li><a href="my_listings.php" class="fav-nav"><img src="img/core-img/listings.png" alt=""> My Listings</a></li>
             <li><a href="user_account.php" class="fav-nav"><img src="img/core-img/user.png" alt=""> <?php echo $_SESSION["fname"] ?></a></li>

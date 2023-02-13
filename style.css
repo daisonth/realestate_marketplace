@@ -57,3 +57,15 @@
   width: 100%;
   height: 100%;
 }
+
+.bin:hover {
+  content: url(img/core-img/bin_red.png);
+}
+
+.daas-star-on:hover {
+  content: url(img/core-img/star_off.png);
+}
+
+.daas-star-off:hover {
+  content: url(img/core-img/star_on.png);
+}

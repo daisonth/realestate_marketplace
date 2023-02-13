@@ -9,7 +9,7 @@
         <div class="single_widget_area">
           <!-- Logo -->
           <div class="footer-logo mr-50">
-            <a href="index.php"><img src="img/core-img/daas2.png" alt=""></a>
+            <a href="index.php"><img src="../img/core-img/daas2.png" alt=""></a>
           </div>
         </div>
       </div>
@@ -33,9 +33,6 @@
                   </li>
                   <li class="nav-item"><?php $val = ((isset($_SESSION["userid"]) ? "logout" : "login")); ?>
                     <a class="nav-link" href="<?php echo $val; ?>.php"><?php echo $val; ?></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="admin/login.php">Admin</a>
                   </li>
                 </ul>
               </div>

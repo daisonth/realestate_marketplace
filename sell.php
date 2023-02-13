@@ -108,7 +108,7 @@ if (isset($_POST["submit"])) {
       }
     }
   }
-  $query = "INSERT INTO active_listings_tbl(`owner_id`,`title`, `discription`, `property_type`, `size`, `size_format`,
+  $query = "INSERT INTO property_tbl(`owner_id`,`title`, `discription`, `property_type`, `size`, `size_format`,
 `property_address`, `city`, `pin`, `price`, `denomination`, `fname`, `lname`, `email`, `phoneno`, `image_one`, 
 `image_two`, `image_three`, `image_four`, `date`) VALUES ('$userid','$title','$discription','$property_type',
 '$size','$size_format','$property_address','$city','$pin', '$price','$denomination','$fname','$lname','$email',

@@ -7,7 +7,7 @@ session_start();
 
 if (isset($_GET["id"])) {
   $id = $_GET["id"];
-  $query = "SELECT * FROM active_listings_tbl WHERE listing_id='$id'";
+  $query = "SELECT * FROM property_tbl WHERE property_id='$id'";
   $result = mysqli_query($conn, $query);
   print_r($result);
   $row = mysqli_fetch_assoc($result);
@@ -15,7 +15,7 @@ if (isset($_GET["id"])) {
   unlink($row["image_two"]);
   unlink($row["image_three"]);
   unlink($row["image_four"]);
-  $query = "DELETE FROM active_listings_tbl WHERE listing_id='$id'";
+  $query = "DELETE FROM property_tbl WHERE property_id='$id'";
   $result = mysqli_query($conn, $query);
 }
 

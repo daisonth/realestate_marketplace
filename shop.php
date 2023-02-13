@@ -13,12 +13,13 @@ $sort = ((isset($_GET["sort"])) ? $_GET["sort"] : "date");
 $order = ((isset($_GET["order"])) ? $_GET["order"] : "ASC");
 $view = ((isset($_GET["view"])) ? $_GET["view"] : "10");
 
-$query = "SELECT * FROM active_listings_tbl ORDER BY $sort $order LIMIT $low," . $low + $view;
+// $query = "SELECT * FROM property_tbl ORDER BY $sort $order LIMIT $low," . $low + $view;
+$query = "SELECT t1.* ,t2.wishlist_id FROM `property_tbl` AS t1 LEFT JOIN (SELECT * FROM wishlist_tbl WHERE user_id=6 ) AS t2 ON t1.property_id = t2.property_id ORDER BY t1.$sort $order LIMIT $low," . $low + $view;
 if (!($result = mysqli_query($conn, $query))) {
   header("location: shop.php");
 }
 
-$query2 = "SELECT COUNT(listing_id) FROM `active_listings_tbl` WHERE status='active'";
+$query2 = "SELECT COUNT(property_id) FROM `property_tbl` WHERE status='active'";
 $result2 = mysqli_query($conn, $query2);
 $row2 = mysqli_fetch_array($result2);
 $rnum = $row2[0];
@@ -140,7 +141,7 @@ $rnum = $row2[0];
         <div class="col-12 col-sm-6 col-md-12 col-xl-6">
           <div class="single-product-wrapper">
             <!-- Product Image -->
-            <a href="property_details.php?id=<?php echo $row["listing_id"] ?>">
+            <a href="property_details.php?id=<?php echo $row["property_id"] ?>">
               <div class="product-img">
                 <img class="pimg" src="<?php echo $row["image_one"] ?>" alt="">
                 <!-- Hover Thumb -->
@@ -153,10 +154,10 @@ $rnum = $row2[0];
               <!-- Product Meta Data -->
               <div class="product-meta-data">
                 <div class="line"></div>
-                <a href="property_details.php?id=<?php echo $row["listing_id"] ?>">
+                <a href="property_details.php?id=<?php echo $row["property_id"] ?>">
                   <p class="title-p"><?php echo $row["title"] ?></p>
                 </a>
-                <a href="property_details.php?id=<?php echo $row["listing_id"] ?>">
+                <a href="property_details.php?id=<?php echo $row["property_id"] ?>">
                   <h6><?php echo $row["city"] ?></h6>
                 </a>
               </div>
@@ -166,7 +167,9 @@ $rnum = $row2[0];
                   <p class="product-price product-price-c">₹<?php echo $row["price"] . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
                 </div>
                 <div class="cart">
-                  <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add To Wishlist"><img src="img/core-img/star_off.png" alt="" class="star"></a>
+                  <a href="wishlist.php?id=<?php echo $row["property_id"] ?>" data-toggle="tooltip" data-placement="left" title="<?php echo (($row["wishlist_id"] != null) ? "Remove From Wishlist" : "Add To Wishlist"); ?>">
+                    <img class="<?php echo (($row["wishlist_id"] != null) ? "daas-star-on" : "daas-star-off"); ?>" src="img/core-img/<?php echo (($row["wishlist_id"] != null) ? "star_on" : "star_off"); ?>.png" alt="" class="star">
+                  </a>
                 </div>
               </div>
             </div>
@@ -191,12 +194,5 @@ $rnum = $row2[0];
 </div>
 </div>
 <!-- ##### Main Content Wrapper End ##### -->
-
-<script type="text/javascript">
-  const star = document.querySelector(`.star`);
-  star.addEventListener(`click`, function() {
-    star.src = `img/core-img/star_on.png`;
-  });
-</script>
 
 <?php include("footer.php"); ?>

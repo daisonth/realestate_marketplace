@@ -10,7 +10,7 @@ if (!isset($_SESSION["userid"]) || !isset($_GET["id"])) {
   $property_id = $_GET["id"];
 }
 
-$query = "SELECT * FROM active_listings_tbl WHERE listing_id='$property_id';";
+$query = "SELECT * FROM property_tbl WHERE property_id='$property_id';";
 $result = mysqli_query($conn, $query);
 
 if ($result->num_rows > 0) {
@@ -117,7 +117,7 @@ if (isset($_POST["submit"])) {
     // }
   }
 
-  $query = "UPDATE active_listings_tbl set owner_id='$userid', title='$title', discription='$discription', property_type='$property_type', size='$size', size_format='$size_format', property_address='$property_address', city='$city', pin='$pin', price='$price', denomination='$denomination', fname='$fname', lname='$lname', email='$email', phoneno='$phoneno', image_one='$images[0]', image_two='$images[1]', image_three='$images[2]', image_four='$images[3]' WHERE listing_id='$property_id'";
+  $query = "UPDATE active_listings_tbl set owner_id='$userid', title='$title', discription='$discription', property_type='$property_type', size='$size', size_format='$size_format', property_address='$property_address', city='$city', pin='$pin', price='$price', denomination='$denomination', fname='$fname', lname='$lname', email='$email', phoneno='$phoneno', image_one='$images[0]', image_two='$images[1]', image_three='$images[2]', image_four='$images[3]' WHERE property_id='$property_id'";
 
   if (mysqli_query($conn, $query)) {
     header("location: property_details.php?id=$property_id");
