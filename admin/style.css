@@ -46,15 +46,15 @@
 }
 
 .bin:hover {
-  content: url(img/core-img/bin_red.png);
+  content: url(../img/core-img/bin_red.png);
 }
 
 .daas-star-on:hover {
-  content: url(img/core-img/star_off.png);
+  content: url(../img/core-img/star_off.png);
 }
 
 .daas-star-off:hover {
-  content: url(img/core-img/star_on.png);
+  content: url(../img/core-img/star_on.png);
 }
 
 .main-content-wrapper {

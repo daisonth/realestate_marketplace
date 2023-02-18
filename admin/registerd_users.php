@@ -2,13 +2,13 @@
 <?php include("connection.php") ?>
 
 <?php
-if (!isset($_SESSION["userid"])) {
+if (!isset($_SESSION["admin_id"])) {
   header("location: login.php");
 } else {
-  $userid = $_SESSION["userid"];
+  $admin_id = $_SESSION["admin_id"];
 }
 
-$query = "SELECT * FROM property_tbl WHERE owner_id='$userid'";
+$query = "SELECT t1.*, t2.count as count FROM users_tbl AS t1 LEFT JOIN (SELECT owner_id, COUNT(property_id) as count FROM property_tbl GROUP BY owner_id ) AS t2 ON t1.userid = t2.owner_id;";
 $result = mysqli_query($conn, $query);
 ?>
 
@@ -17,17 +17,17 @@ $result = mysqli_query($conn, $query);
     <div class="row">
       <div class="f1 col-12 col-lg-8">
         <div class="cart-title mt-50">
-          <h2>Your Listings</h2>
+          <h2>Registerd Users </h2>
         </div>
 
         <div class="cart-table clearfix">
           <table class="table table-responsive">
             <thead>
               <tr>
-                <th>IMAGE</th>
-                <th>DETAILS</th>
-                <th>PRICE</th>
-                <th>STATUS</th>
+                <th></th>
+                <th>ADDRESS</th>
+                <th>CONTACT</th>
+                <th>NO. OF LISTINGS</th>
                 <th></th>
               </tr>
             </thead>
@@ -35,20 +35,24 @@ $result = mysqli_query($conn, $query);
               <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <tr>
                   <td class="cart_product_img">
-                    <a href="property_details.php?id=<?php echo $row["property_id"] ?>"><img src="<?php echo $row["image_one"] ?>" alt="Image" style="width: 150px; height: 150px"></a>
+                    <h5><?php echo $row["firstname"] . " " . $row["lastname"] ?></h5>
                   </td>
                   <td class="cart_product_desc">
-                    <h5><?php echo $row["title"] ?></h5>
-                    <a href="property_details.php?id=<?php echo $row["property_id"] ?>">view</a>
+                    <h5><?php echo $row["address"] . ", " . $row["city"] . ", " . $row["state"] . ", Pin:" . $row["pincode"] ?></h5>
                   </td>
                   <td class="price">
-                    <p>₹<?php echo $row["price"] . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
+                    <h5><?php echo $row["phoneno"] ?></h5>
+                    <h5><?php echo $row["email"] ?></h5>
                   </td>
                   <td class="qty">
-                    <span><?php echo strtoupper($row["status"]) ?> <a href="switch_status.php?id=<?php echo $row["property_id"] ?>"><img src="img/core-img/rotate.png"></a></span>
+                    <?php if ($row["count"] != NULL) { ?>
+                      <h5><?php echo $row["count"] ?></h5>
+                      <a target="_blank" href="properties_listed.php?id=<?php echo $row["userid"] ?>">view Listings</a>
+                    <?php } else { ?>
+                      <h5>0</h5>
+                    <?php } ?>
                   </td>
                   <td class="qty">
-                    <a href="remove_listing.php?id=<?php echo $row["property_id"] ?>" data-toggle="tooltip" data-placement="left" title="Delete"><img class="bin" src="img/core-img/bin_black.png"></a>
                   </td>
                 </tr>
               <?php } ?>

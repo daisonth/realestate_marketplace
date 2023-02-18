@@ -2,13 +2,13 @@
 <?php include("connection.php") ?>
 
 <?php
-if (!isset($_SESSION["userid"])) {
+if (!isset($_SESSION["admin_id"])) {
   header("location: login.php");
 } else {
-  $userid = $_SESSION["userid"];
+  $admin_id = $_SESSION["admin_id"];
 }
 
-$query = "SELECT * FROM property_tbl WHERE owner_id='$userid'";
+$query = "SELECT * FROM property_tbl;";
 $result = mysqli_query($conn, $query);
 ?>
 
@@ -17,7 +17,7 @@ $result = mysqli_query($conn, $query);
     <div class="row">
       <div class="f1 col-12 col-lg-8">
         <div class="cart-title mt-50">
-          <h2>Your Listings</h2>
+          <h2>Listed Properties</h2>
         </div>
 
         <div class="cart-table clearfix">
@@ -35,20 +35,20 @@ $result = mysqli_query($conn, $query);
               <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <tr>
                   <td class="cart_product_img">
-                    <a href="property_details.php?id=<?php echo $row["property_id"] ?>"><img src="<?php echo $row["image_one"] ?>" alt="Image" style="width: 150px; height: 150px"></a>
+                    <img src="../<?php echo $row["image_one"] ?>" alt="Image" style="width: 150px; height: 150px">
                   </td>
                   <td class="cart_product_desc">
                     <h5><?php echo $row["title"] ?></h5>
-                    <a href="property_details.php?id=<?php echo $row["property_id"] ?>">view</a>
+                    <a target="_blank" href="../property_details.php?id=<?php echo $row["property_id"] ?>">view</a>
                   </td>
                   <td class="price">
                     <p>₹<?php echo $row["price"] . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
                   </td>
                   <td class="qty">
-                    <span><?php echo strtoupper($row["status"]) ?> <a href="switch_status.php?id=<?php echo $row["property_id"] ?>"><img src="img/core-img/rotate.png"></a></span>
+                    <span><?php echo strtoupper($row["status"]) ?> <a href="switch_status.php?id=<?php echo $row["property_id"] ?>"><img src="../img/core-img/rotate.png"></a></span>
                   </td>
                   <td class="qty">
-                    <a href="remove_listing.php?id=<?php echo $row["property_id"] ?>" data-toggle="tooltip" data-placement="left" title="Delete"><img class="bin" src="img/core-img/bin_black.png"></a>
+                    <a href="remove_listing.php?id=<?php echo $row["property_id"] ?>" data-toggle="tooltip" data-placement="left" title="Delete"><img class="bin" src="../img/core-img/bin_black.png"></a>
                   </td>
                 </tr>
               <?php } ?>

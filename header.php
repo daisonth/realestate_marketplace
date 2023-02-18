@@ -78,7 +78,7 @@ error_reporting(E_ALL);
             <li><a href="my_listings.php" class="fav-nav"><img src="img/core-img/listings.png" alt=""> My Listings</a></li>
             <li><a href="user_account.php" class="fav-nav"><img src="img/core-img/user.png" alt=""> <?php echo $_SESSION["fname"] ?></a></li>
           <?php } ?>
-          <li><a href="#" class="search-nav"><img src="img/core-img/find.png" alt=""> Search</a></li>
+          <!-- <li><a href="#" class="search-nav"><img src="img/core-img/find.png" alt=""> Search</a></li> -->
         </ul>
       </nav>
       <!-- Button Group -->

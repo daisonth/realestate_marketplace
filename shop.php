@@ -8,21 +8,25 @@ if (!isset($_SESSION["userid"])) {
   $userid = $_SESSION["userid"];
 }
 
-$low =  ((isset($_GET["low"])) ? $_GET["low"] : 0);
+$low = ((isset($_GET["low"])) ? $_GET["low"] : 0);
 $sort = ((isset($_GET["sort"])) ? $_GET["sort"] : "date");
 $order = ((isset($_GET["order"])) ? $_GET["order"] : "ASC");
 $view = ((isset($_GET["view"])) ? $_GET["view"] : "10");
+$type = ((isset($_GET["type"])) ? $_GET["type"] : "all");
+$where_clause = "";
 
+if ($type != "all") $where_clause = "WHERE t1.property_type='$type'";
 // $query = "SELECT * FROM property_tbl ORDER BY $sort $order LIMIT $low," . $low + $view;
-$query = "SELECT t1.* ,t2.wishlist_id FROM `property_tbl` AS t1 LEFT JOIN (SELECT * FROM wishlist_tbl WHERE user_id=6 ) AS t2 ON t1.property_id = t2.property_id ORDER BY t1.$sort $order LIMIT $low," . $low + $view;
+$query = "SELECT t1.* ,t2.wishlist_id FROM `property_tbl` AS t1 LEFT JOIN (SELECT * FROM wishlist_tbl WHERE user_id=6 ) AS t2 ON t1.property_id = t2.property_id $where_clause ORDER BY t1.$sort $order LIMIT $low," . $low + $view;
 if (!($result = mysqli_query($conn, $query))) {
   header("location: shop.php");
 }
 
-$query2 = "SELECT COUNT(property_id) FROM `property_tbl` WHERE status='active'";
-$result2 = mysqli_query($conn, $query2);
+$result2 = mysqli_query($conn, "SELECT COUNT(property_id) FROM `property_tbl` WHERE status='active'");
 $row2 = mysqli_fetch_array($result2);
 $rnum = $row2[0];
+
+$result1 = mysqli_query($conn, "SELECT category_name FROM category_tbl;");
 ?>
 
 <div class="shop_sidebar_area">
@@ -35,13 +39,10 @@ $rnum = $row2[0];
     <!--  Catagories  -->
     <div class="catagories-menu">
       <ul>
-        <li class="active"><a href="#">All</a></li>
-        <li><a href="#">Beds</a></li>
-        <li><a href="#">Accesories</a></li>
-        <li><a href="#">Furniture</a></li>
-        <li><a href="#">Home Deco</a></li>
-        <li><a href="#">Dressings</a></li>
-        <li><a href="#">Tables</a></li>
+        <li class="<?php echo (($type == "any") ? "active" : "") ?>"><a href="shop.php?sort=<?php echo $sort ?>&order=<?php echo $order ?>&view=<?php echo $view ?>&low=<?php echo $low ?>">All</a></li>
+        <?php while ($row = mysqli_fetch_array($result1)) { ?>
+          <li class="<?php echo (($type == "$row[0]") ? "active" : "") ?>"><a href="shop.php?sort=<?php echo $sort ?>&order=<?php echo $order ?>&view=<?php echo $view ?>&low=<?php echo $low ?>&type=<?php echo $row[0] ?>"><?php echo $row[0] ?></a></li>
+        <?php } ?>
       </ul>
     </div>
   </div>
