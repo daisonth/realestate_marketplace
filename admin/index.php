@@ -158,7 +158,7 @@ if ($row = $result->fetch_row()) $active_listings = $row[0];
                 </div>
                 <div class="col-9 text-right">
                   <h1><?php echo $property_categories ?></h1>
-                  <h4>Property Categories</h4>
+                  <h4>Property Types</h4>
                 </div>
               </div>
             </div>
