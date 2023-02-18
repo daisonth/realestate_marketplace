@@ -3,7 +3,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 ?>
-<?php session_start() ?>
+
+<?php
+session_start();
+include("connection.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,10 +18,9 @@ error_reporting(E_ALL);
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@45,300,0,6" />
   <title>Admin | DAAS Real Estats</title>
-
   <link rel="icon" href="../img/core-img/favicon.ico">
   <link rel="stylesheet" href="../css/core-style.css">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -51,11 +54,12 @@ error_reporting(E_ALL);
       <nav class="amado-nav">
         <ul class="nav-list">
           <li><a href="index.php" class="fav-nav"><img src="../img/core-img/dashboard.png" alt=""> Dashboard</a></li>
-          <li><a href="index.php" class="fav-nav"><img src="../img/core-img/home.png" alt=""> Edit Home Page</a></li>
-          <li><a href="shop.php" class="fav-nav"><img src="../img/core-img/shopping.png" alt=""> Listings</a></li>
-          <li><a href="my_listings.php" class="fav-nav"><img src="../img/core-img/listings.png" alt=""> Users</a></li>
-          <li><a href="my_listings.php" class="fav-nav"><img src="../img/core-img/listings.png" alt=""> Users</a></li>
-          <li><a href="user_account.php" class="fav-nav"><img src="../img/core-img/user.png" alt=""> <?php echo $_SESSION["fname"] ?></a></li>
+          <li><a href="edit_home_page.php" class="fav-nav"><img src="../img/core-img/home.png" alt=""> Edit Home Page</a></li>
+          <li><a href="#" class="fav-nav"><img src="../img/core-img/shopping.png" alt=""> Listed Properties</a></li>
+          <li><a href="#" class="fav-nav"><img src="../img/core-img/listings.png" alt=""> Registerd Users</a></li>
+          <li><a href="#" class="fav-nav"><img src="../img/core-img/listings.png" alt=""> Categories</a></li>
+          <li><a href="#" class="fav-nav"><img src="../img/core-img/listings.png" alt=""> Cities & States</a></li>
+          <li><a href="#" class="fav-nav"><img src="../img/core-img/user.png" alt=""> <?php echo $_SESSION["fname"] ?></a></li>
         </ul>
       </nav>
       <!-- Button Group -->

@@ -56,3 +56,7 @@
 .daas-star-off:hover {
   content: url(img/core-img/star_on.png);
 }
+
+.main-content-wrapper {
+  flex-wrap: nowrap;
+}
