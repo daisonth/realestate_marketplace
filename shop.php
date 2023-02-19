@@ -14,10 +14,12 @@ $order = ((isset($_GET["order"])) ? $_GET["order"] : "ASC");
 $view = ((isset($_GET["view"])) ? $_GET["view"] : "10");
 $type = ((isset($_GET["type"])) ? $_GET["type"] : "all");
 $where_clause = "";
+$where_clause1 = "";
 
 if ($type != "all") $where_clause = "WHERE t1.property_type='$type'";
+if ($userid != NULL) $where_clause1 = "WHERE user_id='$userid'";
 // $query = "SELECT * FROM property_tbl ORDER BY $sort $order LIMIT $low," . $low + $view;
-$query = "SELECT t1.* ,t2.wishlist_id FROM `property_tbl` AS t1 LEFT JOIN (SELECT * FROM wishlist_tbl WHERE user_id=6 ) AS t2 ON t1.property_id = t2.property_id $where_clause ORDER BY t1.$sort $order LIMIT $low," . $low + $view;
+$query = "SELECT t1.* ,t2.wishlist_id FROM `property_tbl` AS t1 LEFT JOIN (SELECT * FROM wishlist_tbl $where_clause1 ) AS t2 ON t1.property_id = t2.property_id $where_clause ORDER BY t1.$sort $order LIMIT $low," . $low + $view;
 if (!($result = mysqli_query($conn, $query))) {
   header("location: shop.php");
 }

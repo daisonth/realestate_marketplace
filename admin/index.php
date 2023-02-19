@@ -26,11 +26,11 @@ if ($row = $result->fetch_row()) $sold_properties = $row[0];
 $result = mysqli_query($conn, "SELECT COUNT(property_id) FROM property_tbl WHERE status='active';");
 if ($row = $result->fetch_row()) $active_listings = $row[0];
 
-// $result = mysqli_query($conn, "SELECT COUNT(property_id) FROM category_tbl;");
-// if ($row = $result->fetch_row()) $active_listings = $row[0];
+$result = mysqli_query($conn, "SELECT COUNT(category_id) FROM category_tbl;");
+if ($row = $result->fetch_row()) $category_count = $row[0];
 
-// $result = mysqli_query($conn, "SELECT COUNT(city_id) FROM city_tbl;");
-// if ($row = $result->fetch_row()) $active_listings = $row[0];
+$result = mysqli_query($conn, "SELECT COUNT(city_id) FROM city_tbl;");
+if ($row = $result->fetch_row()) $city_count = $row[0];
 ?>
 
 <div class="container mt-100">
@@ -104,7 +104,7 @@ if ($row = $result->fetch_row()) $active_listings = $row[0];
                 </div>
                 <div class="col-9 text-right">
                   <h1><?php echo $sold_properties ?></h1>
-                  <h4>Sold Properties</h4>
+                  <h4>Properties Sold</h4>
                 </div>
               </div>
             </div>
@@ -157,7 +157,7 @@ if ($row = $result->fetch_row()) $active_listings = $row[0];
                   <i class="fa fa-university fa-5x"></i>
                 </div>
                 <div class="col-9 text-right">
-                  <h1><?php echo $property_categories ?></h1>
+                  <h1><?php echo $category_count ?></h1>
                   <h4>Property Types</h4>
                 </div>
               </div>
@@ -184,7 +184,7 @@ if ($row = $result->fetch_row()) $active_listings = $row[0];
                   <i class="fa fa-suitcase fa-5x"></i>
                 </div>
                 <div class="col-9 text-right">
-                  <h1><?php echo $cities ?></h1>
+                  <h1><?php echo $city_count ?></h1>
                   <h4>Cities</h4>
                 </div>
               </div>
