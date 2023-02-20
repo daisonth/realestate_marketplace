@@ -82,27 +82,31 @@ if ($result->num_rows > 0) {
                 <a href="edit_listing.php?id=<?php echo $property_id ?>" class="btn amado-btn mb-15"> EDIT LISTING</a>
               </div>
             <?php } else { ?>
-              <button type="button" class="btn btn-primary amado-btn mb-15" data-toggle="modal" data-target="#exampleModalCenter">
-                CONTACT OWNER
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                Open modal
               </button>
 
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
+              <!-- The Modal -->
+              <div class="modal" id="myModal">
+                <div class="modal-dialog">
                   <div class="modal-content">
+
+                    <!-- Modal Header -->
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+                      <h4 class="modal-title">Modal Heading</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
+
+                    <!-- Modal body -->
                     <div class="modal-body">
-                      ...
+                      Modal body..
                     </div>
+
+                    <!-- Modal footer -->
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
+
                   </div>
                 </div>
               </div>

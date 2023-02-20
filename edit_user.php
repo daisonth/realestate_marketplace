@@ -18,7 +18,6 @@ if (isset($_SESSION["userid"])) {
   $pincode = $row["pincode"];
   $password = $row["password"];
   $con_password = $row["password"];
-  $dp = $row["dp"];
 
   if (isset($_POST["save"])) {
     $fname = $_POST["fname"];

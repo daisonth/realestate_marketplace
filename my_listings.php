@@ -21,7 +21,7 @@ $result = mysqli_query($conn, $query);
         </div>
 
         <div class="cart-table clearfix">
-          <table class="table table-responsive">
+          <table class="table table-hover">
             <thead>
               <tr>
                 <th>IMAGE</th>
