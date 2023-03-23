@@ -56,3 +56,8 @@
 .daas-star-off:hover {
   content: url(img/core-img/star_on.png);
 }
+
+.ScrollStyle {
+  max-height: 100px;
+  overflow: scroll;
+}

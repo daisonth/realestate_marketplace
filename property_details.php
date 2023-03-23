@@ -106,7 +106,6 @@ if ($result->num_rows > 0) {
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
-
                   </div>
                 </div>
               </div>

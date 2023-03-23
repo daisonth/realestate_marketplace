@@ -13,13 +13,14 @@ $sort = ((isset($_GET["sort"])) ? $_GET["sort"] : "date");
 $order = ((isset($_GET["order"])) ? $_GET["order"] : "ASC");
 $view = ((isset($_GET["view"])) ? $_GET["view"] : "10");
 $type = ((isset($_GET["type"])) ? $_GET["type"] : "all");
-$where_clause = "";
+$where_clause = "where t1.status='active'";
 $where_clause1 = "";
 
-if ($type != "all") $where_clause = "WHERE t1.property_type='$type'";
+if ($type != "all") $where_clause = "WHERE t1.property_type='$type' AND t1.status='active'";
 if ($userid != NULL) $where_clause1 = "WHERE user_id='$userid'";
-// $query = "SELECT * FROM property_tbl ORDER BY $sort $order LIMIT $low," . $low + $view;
-$query = "SELECT t1.* ,t2.wishlist_id FROM `property_tbl` AS t1 LEFT JOIN (SELECT * FROM wishlist_tbl $where_clause1 ) AS t2 ON t1.property_id = t2.property_id $where_clause ORDER BY t1.$sort $order LIMIT $low," . $low + $view;
+
+$tot = $low + $view;
+$query = "SELECT t1.* ,t2.wishlist_id FROM property_tbl AS t1 LEFT JOIN (SELECT * FROM wishlist_tbl $where_clause1 ) AS t2 ON t1.property_id = t2.property_id $where_clause ORDER BY t1.$sort $order LIMIT $low,$tot";
 if (!($result = mysqli_query($conn, $query))) {
   header("location: shop.php");
 }
@@ -28,77 +29,66 @@ $result2 = mysqli_query($conn, "SELECT COUNT(property_id) FROM `property_tbl` WH
 $row2 = mysqli_fetch_array($result2);
 $rnum = $row2[0];
 
-$result1 = mysqli_query($conn, "SELECT category_name FROM category_tbl;");
+$result_property_type = mysqli_query($conn, "SELECT category_name FROM category_tbl;");
+$result_states = mysqli_query($conn, "SELECT * FROM state_tbl;");
+$result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
 ?>
 
 <div class="shop_sidebar_area">
-
-  <!-- ##### Single Widget ##### -->
-  <div class="widget catagory mb-50">
-    <!-- Widget Title -->
-    <h6 class="widget-title mb-30">Property Type</h6>
-
-    <!--  Catagories  -->
-    <div class="catagories-menu">
-      <ul>
-        <li class="<?php echo (($type == "any") ? "active" : "") ?>"><a href="shop.php?sort=<?php echo $sort ?>&order=<?php echo $order ?>&view=<?php echo $view ?>&low=<?php echo $low ?>">All</a></li>
-        <?php while ($row = mysqli_fetch_array($result1)) { ?>
-          <li class="<?php echo (($type == "$row[0]") ? "active" : "") ?>"><a href="shop.php?sort=<?php echo $sort ?>&order=<?php echo $order ?>&view=<?php echo $view ?>&low=<?php echo $low ?>&type=<?php echo $row[0] ?>"><?php echo $row[0] ?></a></li>
-        <?php } ?>
-      </ul>
-    </div>
-  </div>
-
-  <!-- ##### Single Widget ##### -->
-  <div class="widget brands mb-50">
-    <!-- Widget Title -->
-    <h6 class="widget-title mb-30">States</h6>
-
-    <div class="widget-desc">
-      <!-- Single Form Check -->
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="amado">
-        <label class="form-check-label" for="amado">Amado</label>
-      </div>
-      <!-- Single Form Check -->
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="ikea">
-        <label class="form-check-label" for="ikea">Ikea</label>
-      </div>
-      <!-- Single Form Check -->
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="furniture">
-        <label class="form-check-label" for="furniture">Furniture Inc</label>
-      </div>
-      <!-- Single Form Check -->
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="factory">
-        <label class="form-check-label" for="factory">The factory</label>
-      </div>
-      <!-- Single Form Check -->
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="artdeco">
-        <label class="form-check-label" for="artdeco">Artdeco</label>
+  <form action="" method="GET">
+    <div class="nav-item widget catagory mb-50">
+      <a class="collapsed widget brands mb-50" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOwo">
+        <h4 class="widget-title">Property Type</h4>
+      </a>
+      <div id="collapseOne" class="pl-3 bg-white catagories-menu ScrollStyle collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+        <ul style="max-height: 300px; overflow: scroll;">
+          <li class="pt-2">All</li>
+          <?php while ($row0 = mysqli_fetch_array($result_property_type)) { ?>
+            <li class="pt-2"><?php echo $row0[0] ?></li>
+          <?php } ?>
+        </ul>
       </div>
     </div>
-  </div>
-  <!-- ##### Single Widget ##### -->
-  <div class="widget price mb-50">
-    <!-- Widget Title -->
-    <h6 class="widget-title mb-30">Price</h6>
 
-    <div class="widget-desc">
-      <div class="slider-range">
-        <div data-min="10" data-max="1000" data-unit="₹" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="10" data-value-max="1000" data-label-result="">
-          <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-          <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-          <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+    <div class="nav-item widget catagory mb-50">
+      <a class="collapsed widget brands mb-50" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <h4 class="widget-title">States</h4>
+      </a>
+      <div id="collapseTwo" class="pl-3 bg-white catagories-menu ScrollStyle collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <ul style="max-height: 200px; overflow: scroll;">
+          <li class="pt-2">All</li>
+          <?php while ($row1 = mysqli_fetch_array($result_states)) { ?>
+            <li class="pt-2"><?php echo $row1[1] ?></li>
+          <?php } ?>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nav-item widget catagory mb-50">
+      <a class="collapsed widget brands mb-50" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+        <h4 class="widget-title">City</h4>
+      </a>
+      <div id="collapseThree" class="pl-3 bg-white catagories-menu ScrollStyle collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+        <ul style="max-height: 200px; overflow: scroll;">
+          <li class="pt-2">All</li>
+          <?php while ($row2 = mysqli_fetch_array($result_cities)) { ?>
+            <li class="pt-2"><?php echo $row2[1] ?></li>
+          <?php } ?>
+        </ul>
+      </div>
+    </div>
+    <nav aria-label="navigation">
+      <ul class="pagination justify-content-end mt-50">
+        <div class="amado-btn-group mt-30 mb-100">
+          <input type="submit" value="submit" name="sumit" class="btn amado-btn mb-15">
         </div>
-        <div class="range-price">$10 - $1000</div>
-      </div>
-    </div>
-  </div>
+      </ul>
+    </nav>
+  </form>
+
 </div>
+
+
 
 <div class="amado_product_area section-padding-100">
   <div class="container-fluid">

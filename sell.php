@@ -24,6 +24,7 @@ $email = "";
 $phoneno = "";
 $fname = "";
 $lname = "";
+$status = "disabled";
 
 $query1 = "SELECT firstname,lastname,email,phoneno FROM users_tbl WHERE userid='$userid';";
 $result = mysqli_query($conn, $query1);
@@ -110,12 +111,14 @@ if (isset($_POST["submit"])) {
   }
   $query = "INSERT INTO property_tbl(`owner_id`,`title`, `discription`, `property_type`, `size`, `size_format`,
 `property_address`, `city`, `pin`, `price`, `denomination`, `fname`, `lname`, `email`, `phoneno`, `image_one`, 
-`image_two`, `image_three`, `image_four`, `date`) VALUES ('$userid','$title','$discription','$property_type',
+`image_two`, `image_three`, `image_four`, `status`, `date`) VALUES ('$userid','$title','$discription','$property_type',
 '$size','$size_format','$property_address','$city','$pin', '$price','$denomination','$fname','$lname','$email',
-'$phoneno','$images[0]','$images[1]','$images[2]', '$images[3]','$date')";
+'$phoneno','$images[0]','$images[1]','$images[2]', '$images[3]', '$status','$date')";
 
   if (mysqli_query($conn, $query)) {
-    header("location: index.php");
+    $result = mysqli_query($conn, "select property_id from property_tbl WHERE owner_id=$userid AND status='$status' ORDER BY property_id DESC LIMIT 0 , 1");
+    $row = mysqli_fetch_row($result);
+    header("location: checkout.php?listing_id=$row[0]");
   } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
   }
