@@ -12,10 +12,11 @@ error_reporting(E_ALL);
   <meta name="description" content="">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@45,300,0,6" />
   <title>DAAS Real Estate's</title>
 
   <link rel="icon" href="img/core-img/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@45,300,0,6" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
   <link rel="stylesheet" href="css/core-style.css">
   <link rel="stylesheet" href="style.css">
 </head>

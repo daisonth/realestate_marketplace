@@ -83,7 +83,7 @@ if ($result->num_rows > 0) {
               </div>
             <?php } else { ?>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Open modal
+                Contact Owner
               </button>
 
               <!-- The Modal -->
@@ -93,13 +93,16 @@ if ($result->num_rows > 0) {
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                      <h4 class="modal-title">Modal Heading</h4>
+                      <h4 class="modal-title">
+                        Owner Contact Details
+                      </h4>
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                      Modal body..
+                      <h5>Email : <a href="mailto:<?php echo $row["email"] ?>"><b><?php echo $row["email"] ?></b></a></h5>
+                      <h5>Phone No : <a href="tel:<?php echo $row["phoneno"] ?>"><b><?php echo $row["phoneno"] ?></h5>
                     </div>
 
                     <!-- Modal footer -->

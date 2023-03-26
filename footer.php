@@ -50,6 +50,7 @@
 
 <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
 <script src="js/jquery/jquery-2.2.4.min.js"></script>
+<script src="js/jquery-searchbox.js"></script>
 <!-- Popper js -->
 <script src="js/popper.min.js"></script>
 <!-- Bootstrap js -->
@@ -58,6 +59,34 @@
 <script src="js/plugins.js"></script>
 <!-- Active js -->
 <script src="js/active.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+<script>
+  $('.category-select').searchBox({
+    elementWidth: '250'
+  })
+
+  $('.size-format-select').searchBox({
+    elementWidth: '150'
+  })
+
+  $('.denomination-select').searchBox({
+    elementWidth: '150'
+  })
+
+  $('.property-type-select').searchBox({
+    elementWidth: '100',
+  })
+
+  $('.city-select').searchBox({
+    elementWidth: '100',
+  })
+
+  $('.state-select').searchBox({
+    elementWidth: '100',
+  })
+</script>
 
 </body>
 

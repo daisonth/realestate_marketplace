@@ -13,6 +13,8 @@ $sort = ((isset($_GET["sort"])) ? $_GET["sort"] : "date");
 $order = ((isset($_GET["order"])) ? $_GET["order"] : "ASC");
 $view = ((isset($_GET["view"])) ? $_GET["view"] : "10");
 $type = ((isset($_GET["type"])) ? $_GET["type"] : "all");
+$city = ((isset($_GET["city"])) ? $_GET["city"] : "all");
+$state = ((isset($_GET["state"])) ? $_GET["state"] : "all");
 $where_clause = "where t1.status='active'";
 $where_clause1 = "";
 
@@ -35,57 +37,50 @@ $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
 ?>
 
 <div class="shop_sidebar_area">
-  <form action="" method="GET">
-    <div class="nav-item widget catagory mb-50">
-      <a class="collapsed widget brands mb-50" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOwo">
-        <h4 class="widget-title">Property Type</h4>
-      </a>
-      <div id="collapseOne" class="pl-3 bg-white catagories-menu ScrollStyle collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-        <ul style="max-height: 300px; overflow: scroll;">
-          <li class="pt-2">All</li>
-          <?php while ($row0 = mysqli_fetch_array($result_property_type)) { ?>
-            <li class="pt-2"><?php echo $row0[0] ?></li>
-          <?php } ?>
-        </ul>
-      </div>
-    </div>
+  <form action="shop.php?" method="GET">
 
-    <div class="nav-item widget catagory mb-50">
-      <a class="collapsed widget brands mb-50" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-        <h4 class="widget-title">States</h4>
-      </a>
-      <div id="collapseTwo" class="pl-3 bg-white catagories-menu ScrollStyle collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <ul style="max-height: 200px; overflow: scroll;">
-          <li class="pt-2">All</li>
-          <?php while ($row1 = mysqli_fetch_array($result_states)) { ?>
-            <li class="pt-2"><?php echo $row1[1] ?></li>
-          <?php } ?>
-        </ul>
-      </div>
+    <div class="filter-item">
+      <label for="property_type">Property Type : </label>
+      <select id="property_type" class="property-type-select" name="property-type" value="all">
+        <option value="All Properties">All Properties</option>
+        <?php while ($row0 = mysqli_fetch_array($result_property_type)) { ?>
+          <option value="<?php echo $row0[0] ?>"><?php echo $row0[0] ?></option>
+        <?php } ?>
+      </select>
     </div>
-
-    <div class="nav-item widget catagory mb-50">
-      <a class="collapsed widget brands mb-50" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-        <h4 class="widget-title">City</h4>
-      </a>
-      <div id="collapseThree" class="pl-3 bg-white catagories-menu ScrollStyle collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
-        <ul style="max-height: 200px; overflow: scroll;">
-          <li class="pt-2">All</li>
-          <?php while ($row2 = mysqli_fetch_array($result_cities)) { ?>
-            <li class="pt-2"><?php echo $row2[1] ?></li>
-          <?php } ?>
-        </ul>
-      </div>
+    <br>
+    <br>
+    <br>
+    <div class="filter-item">
+      <label for="fileter-city">City : </label>
+      <select id="fileter-city" class="city-select" name="fileter-city" value="all">
+        <option value="All Cities">All Cities</option>
+        <?php while ($row1 = mysqli_fetch_array($result_cities)) { ?>
+          <option value="<?php echo $row1[1] ?>"><?php echo $row1[1] ?></option>
+        <?php } ?>
+      </select>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="filter-item">
+      <label for="fileter-state">State : </label>
+      <select id="fileter-state" class="state-select" name="fileter-state" value="all">
+        <option value="All States">All States</option>
+        <?php while ($row2 = mysqli_fetch_array($result_states)) { ?>
+          <option value="<?php echo $row2[1] ?>"><?php echo $row2[1] ?></option>
+        <?php } ?>
+      </select>
     </div>
     <nav aria-label="navigation">
       <ul class="pagination justify-content-end mt-50">
         <div class="amado-btn-group mt-30 mb-100">
-          <input type="submit" value="submit" name="sumit" class="btn amado-btn mb-15">
+          <input type="submit" class="btn amado-btn mb-15" value="submit" name="submit">
         </div>
       </ul>
     </nav>
-  </form>
 
+  </form>
 </div>
 
 

@@ -37,12 +37,12 @@ if ($result->num_rows > 0) {
 }
 
 if (isset($_POST["submit"])) {
-  $title = $_POST["title"];
-  $discription = $_POST["discription"];
+  $title = addslashes($_POST["title"]);
+  $discription = addslashes(nl2br($_POST["discription"]));
   $property_type = $_POST["property_type"];
   $size = $_POST["size"];
   $size_format = $_POST["size_format"];
-  $property_address = $_POST["address"];
+  $property_address = addslashes($_POST["address"]);
   $city = $_POST["city"];
   $pin = $_POST["pin"];
   $price = $_POST["price"];
@@ -167,9 +167,9 @@ if (isset($_POST["submit"])) {
                   <p class="mb-0"><b>Property Type</b></p>
                 </div>
                 <div class="col-sm">
-                  <select class="form-select w-100" name="property_type" value="<?php echo $property_type ?>" required>
+                  <select class="category-select" name="property_type" value="<?php echo $property_type ?>">
                     <option selected>Property Type</option>
-                    <option value="house">House</option>
+                    <option value=" house">House</option>
                     <option value="ville">Villa</option>
                     <option value="plot">Plot</option>
                     <option value="land">Land</option>
@@ -188,7 +188,7 @@ if (isset($_POST["submit"])) {
                   <input type="number" class="form-control" id="size" placeholder="Size Details" name="size" value="<?php echo $size ?>" required>
                 </div>
                 <div class="col-sm" style="max-width: 20%;">
-                  <select class="form-select w-100" name="size_format" value="<?php echo $size_format ?>" required>
+                  <select class="size-format-select" name="size_format" value="<?php echo $size_format ?>" required>
                     <option value="cent">Per Cent</option>
                     <option value="sqrft">Sqrft</option>
                     <option value="acres">Acres</option>
@@ -237,7 +237,7 @@ if (isset($_POST["submit"])) {
                   <input type="number" class="form-control" id="price" step="any" value="<?php echo $price ?>" placeholder="Price" name="price" required>
                 </div>
                 <div class="col-sm" style="max-width: 20%;">
-                  <select class="form-select w-100" name="denomination" value="<?php echo $denomination ?>" required>
+                  <select class="denomination-select" name="denomination" value="<?php echo $denomination ?>" required>
                     <option value="lk">Lakhs</option>
                     <option value="cr">Crore</option>
                   </select>
@@ -352,7 +352,6 @@ if (isset($_POST["submit"])) {
       document.querySelector("#phone_number").value = "";
     }
   }
-
 
   custom_file_input.forEach((i) => i.addEventListener("change", fileup));
 
