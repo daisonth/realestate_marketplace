@@ -28,14 +28,13 @@
   $pincode = "";
   $password = "";
   $con_password = "";
-  $dp = "";
 
   if (isset($_POST["signup"])) {
     $fname = $_POST["fname"];
     $lname = $_POST["lname"];
     $email = $_POST["email"];
     $phoneno = $_POST["phoneno"];
-    $address = $_POST["address"];
+    $address = addslashes($_POST["address"]);
     $city = $_POST["city"];
     $state = $_POST["state"];
     $pincode = $_POST["pin"];
@@ -43,7 +42,7 @@
     $con_password = $_POST["con_password"];
 
     if ($password == $con_password) {
-      $query = "INSERT INTO users_tbl(firstname, lastname, password, email, phoneno, address, city, state, pincode, dp) VALUES ('$fname','$lname','$password','$email','$phoneno','$address','$city','$state','$pincode', '$dp')";
+      $query = "INSERT INTO users_tbl(firstname, lastname, password, email, phoneno, address, city, state, pincode) VALUES ('$fname','$lname','$password','$email','$phoneno','$address','$city','$state','$pincode')";
 
       if (mysqli_query($conn, $query)) {
         header("location: login.php");
@@ -104,12 +103,37 @@
                   <div class="col-12 mb-3">
                     <input type="text" class="form-control" id="street_address" placeholder="Address" name="address" value="<?php echo $address ?>">
                   </div>
+
                   <div class="col-md-6 mb-3">
-                    <input type="text" class="form-control" id="city" placeholder="City" name="city" value="<?php echo $city ?>">
+                    <div class="signup-select">
+                      <?php
+                      $query = "SELECT * FROM city_tbl";
+                      $result = mysqli_query($conn, $query); ?>
+                      <select class="city-select form-control" name="city" value="<?php echo $city ?>" required>
+                        <option value="City" selected>City</option>
+                        <?php while ($row = mysqli_fetch_array($result)) { ?>
+                          <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                        <?php }
+                        $result->free_result(); ?>
+                      </select>
+                    </div>
                   </div>
+
                   <div class="col-md-6 mb-3">
-                    <input type="text" class="form-control" id="state" placeholder="State" name="state" value="<?php echo $state ?>">
+                    <div class="signup-select">
+                      <?php
+                      $query = "SELECT * FROM state_tbl";
+                      $result = mysqli_query($conn, $query); ?>
+                      <select class="state-select form-control" name="state" value="<?php echo $state ?>" required>
+                        <option value="state" selected>state</option>
+                        <?php while ($row = mysqli_fetch_array($result)) { ?>
+                          <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                        <?php }
+                        $result->free_result(); ?>
+                      </select>
+                    </div>
                   </div>
+
                   <div class="col-md-6 mb-3">
                     <input type="text" class="form-control" id="zipCode" placeholder="Pin Code" name="pin" value="<?php echo $pincode ?>">
                   </div>

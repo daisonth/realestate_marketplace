@@ -5,7 +5,11 @@
 if (isset($_SESSION["userid"])) {
   $userid = $_SESSION["userid"];
   $fname = $_SESSION["fname"];
-  $query = "SELECT * FROM users_tbl WHERE userid='$userid';";
+  $query = "SELECT t1.*, t2.city_name city_name, t3.state_name state_name FROM users_tbl t1 
+JOIN city_tbl t2 ON t1.city=t2.city_id 
+JOIN state_tbl t3 ON t1.state=t3.state_id
+WHERE userid='$userid';";
+
   $result = mysqli_query($conn, $query);
   $row = mysqli_fetch_assoc($result);
 
@@ -128,7 +132,15 @@ if (isset($_SESSION["userid"])) {
                   <p class="mb-0"><b>City</b></p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" id="city" placeholder="City" name="city" value="<?php echo $city ?>">
+                  <?php
+                  $query = "SELECT * FROM city_tbl";
+                  $result = mysqli_query($conn, $query); ?>
+                  <select class="city-select form-control" name="city" value="<?php echo $city ?>" required>
+                    <?php while ($row = mysqli_fetch_array($result)) { ?>
+                      <option <?php if ($city == $row[0]) echo "selected" ?> value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                    <?php }
+                    $result->free_result(); ?>
+                  </select>
                 </div>
               </div>
 
@@ -138,7 +150,16 @@ if (isset($_SESSION["userid"])) {
                   <p class="mb-0"><b>State</b></p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" id="state" placeholder="State" name="state" value="<?php echo $state ?>">
+                  <?php
+                  $query = "SELECT * FROM state_tbl";
+                  $result = mysqli_query($conn, $query); ?>
+                  <select class="state-select form-control" name="state" value="<?php echo $state ?>" required>
+                    <option value="state" selected>state</option>
+                    <?php while ($row = mysqli_fetch_array($result)) { ?>
+                      <option <?php if ($state == $row[0]) echo "selected" ?> value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                    <?php }
+                    $result->free_result(); ?>
+                  </select>
                 </div>
               </div>
 

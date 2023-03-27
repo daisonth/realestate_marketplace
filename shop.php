@@ -1,16 +1,13 @@
-<?php include("header.php"); ?>
-<?php include("connection.php") ?>
-
 <?php
-if (!isset($_SESSION["userid"])) {
-  header("location: login.php");
-} else {
-  $userid = $_SESSION["userid"];
-}
+include("header.php");
+include("connection.php");
+
+$userid = NULL;
+if (isset($_SESSION["userid"])) $userid = $_SESSION["userid"];
 
 $low = ((isset($_GET["low"])) ? $_GET["low"] : 0);
 $sort = ((isset($_GET["sort"])) ? $_GET["sort"] : "date");
-$order = ((isset($_GET["order"])) ? $_GET["order"] : "ASC");
+$order = ((isset($_GET["order"])) ? $_GET["order"] : "DESC");
 $view = ((isset($_GET["view"])) ? $_GET["view"] : "10");
 $type = ((isset($_GET["property-type"])) ? $_GET["property-type"] : "all");
 $city = ((isset($_GET["fileter-city"])) ? $_GET["fileter-city"] : "all");
@@ -20,19 +17,17 @@ $where_clause1 = "";
 
 if ($type != "all") $where_clause = $where_clause . " AND t1.property_type='$type'";
 if ($city != "all") $where_clause = $where_clause . " AND t1.city='$city'";
-// if ($state != "all") $where_clause = $where_clause . " AND t1.state='$state'";
+if ($state != "all") $where_clause = $where_clause . " AND t5.state_id='$state'";
 if ($userid != NULL) $where_clause1 = "WHERE user_id='$userid'";
 
 $tot = $low + $view;
-$query = "SELECT t1.* ,t2.wishlist_id FROM property_tbl AS t1 
-LEFT JOIN (SELECT * FROM wishlist_tbl $where_clause1 ) AS t2 ON t1.property_id = t2.property_id $where_clause 
-ORDER BY t1.$sort $order LIMIT $low,$tot";
-
 $query = "SELECT t1.* ,t2.wishlist_id, t3.category_name category_name, t4.city_name city_name FROM property_tbl AS t1 
-LEFT JOIN (SELECT * FROM wishlist_tbl $where_clause1 ) AS t2 ON t1.property_id = t2.property_id 
+LEFT JOIN (SELECT * FROM wishlist_tbl $where_clause1 ) 
+AS t2 ON t1.property_id = t2.property_id 
 JOIN category_tbl AS t3 ON t1.property_type = t3.category_id 
-JOIN city_tbl as t4 ON t1.city = t4.city_id $where_clause
-ORDER BY t1.$sort $order LIMIT $low,$tot";
+JOIN city_tbl as t4 ON t1.city = t4.city_id 
+JOIN (SELECT tt2.city_id city_id, tt1.state_name state_name, tt1.state_id FROM state_tbl as tt1 join city_tbl as tt2 on tt1.state_id=tt2.state_id ) 
+AS t5 ON t4.city_id = t5.city_id $where_clause ORDER BY t1.$sort $order LIMIT $low,$tot";
 
 if (!($result = mysqli_query($conn, $query))) {
   header("location: shop.php");
@@ -45,17 +40,19 @@ $rnum = $row2[0];
 $result_property_type = mysqli_query($conn, "SELECT * FROM category_tbl;");
 $result_states = mysqli_query($conn, "SELECT * FROM state_tbl;");
 $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
+
+$link = 'shop.php?property-type=' . $type . '&fileter-city=' . $city . '&fileter-state=' . $state;
 ?>
 
 <div class="shop_sidebar_area">
-  <form action="shop.php?" method="GET">
+  <form action="shop.php" method="GET">
 
     <div class="filter-item">
       <label for="property_type">Property Type : </label>
       <select id="property_type" class="property-type-select" name="property-type" value="all">
         <option value="all">All Properties</option>
         <?php while ($row0 = mysqli_fetch_array($result_property_type)) { ?>
-          <option value="<?php echo $row0[0] ?>"><?php echo $row0[1] ?></option>
+          <option <?php if ($type == $row0[0]) echo "selected" ?> value="<?php echo $row0[0] ?>"><?php echo $row0[1] ?></option>
         <?php } ?>
       </select>
     </div>
@@ -67,7 +64,7 @@ $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
       <select id="fileter-city" class="city-select" name="fileter-city" value="all">
         <option value="all">All Cities</option>
         <?php while ($row1 = mysqli_fetch_array($result_cities)) { ?>
-          <option value="<?php echo $row1[0] ?>"><?php echo $row1[1] ?></option>
+          <option <?php if ($city == $row1[0]) echo "selected" ?> value="<?php echo $row1[0] ?>"><?php echo $row1[1] ?></option>
         <?php } ?>
       </select>
     </div>
@@ -79,14 +76,14 @@ $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
       <select id="fileter-state" class="state-select" name="fileter-state" value="all">
         <option value="all">All States</option>
         <?php while ($row2 = mysqli_fetch_array($result_states)) { ?>
-          <option value="<?php echo $row2[0] ?>"><?php echo $row2[1] ?></option>
+          <option <?php if ($state == $row2[0]) echo "selected" ?> value="<?php echo $row2[0] ?>"><?php echo $row2[1] ?></option>
         <?php } ?>
       </select>
     </div>
     <nav aria-label="navigation">
       <ul class="pagination justify-content-end mt-50">
         <div class="amado-btn-group mt-30 mb-100">
-          <input type="submit" class="btn amado-btn mb-15" value="submit" name="submit">
+          <input type="submit" class="btn amado-btn mb-15" value="Search" name="submit">
         </div>
       </ul>
     </nav>
@@ -104,14 +101,14 @@ $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
             <p>Showing <?php echo (($view < $rnum) ? $view : $rnum) ?> 0f <?php echo $rnum ?></p>
           </div>
           <!-- Sorting -->
-          <div class="product-sorting d-flex">
+          <div class=" product-sorting d-flex">
             <div class="sort-by-date d-flex align-items-center mr-15">
               <p>Sort by</p>
               <form action="#" method="get">
                 <select name="select" id="sortBydate" onchange="location = this.value;">
-                  <option <?php if ($sort == "date") echo "selected" ?> value="shop.php?view=<?php echo $view ?>&order=<?php echo $order ?>&sort=date">Date</option>
-                  <option <?php if ($sort == "price" && $order == "ASC") echo "selected" ?> value="shop.php?view=<?php echo $view ?>&sort=price&order=ASC">Price: Low to High</option>
-                  <option <?php if ($sort == "price" && $order == "DESC") echo "selected" ?> value="shop.php?view=<?php echo $view ?>&sort=price&order=DESC">Price: High to Low</option>
+                  <option <?php if ($sort == "date") echo "selected" ?> value="<?php echo $link . '&sort=date' ?>">Date</option>
+                  <option <?php if ($sort == "price" && $order == "ASC")  echo "selected" ?> value="<?php echo $link . '&sort=price&order=ASC' ?>">Price: Low to High</option>
+                  <option <?php if ($sort == "price" && $order == "DESC") echo "selected" ?> value="<?php echo $link . '&sort=price&order=DESC' ?>">Price: High to Low</option>
                 </select>
               </form>
             </div>
@@ -119,9 +116,10 @@ $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
               <p>View</p>
               <form action="#" method="get">
                 <select name="select" id="viewProduct" onchange="location = this.value;">
-                  <option <?php if ($view == "10") echo "selected" ?> value="shop.php?sort=<?php echo $sort ?>&order=<?php echo $order ?>&view=10">10</option>
-                  <option <?php if ($view == "20") echo "selected" ?> value="shop.php?sort=<?php echo $sort ?>&order=<?php echo $order ?>&view=20">20</option>
-                  <option <?php if ($view == "40") echo "selected" ?> value="shop.php?sort=<?php echo $sort ?>&order=<?php echo $order ?>&view=40">40</option>
+                  <?php $link = $link . '&sort=' . $sort . '&order=' . $order; ?>
+                  <option <?php if ($view == "10") echo "selected" ?> value="<?php echo $link . '&view=10' ?>">10</option>
+                  <option <?php if ($view == "20") echo "selected" ?> value="<?php echo $link . '&view=20' ?>">20</option>
+                  <option <?php if ($view == "40") echo "selected" ?> value="<?php echo $link . '&view=40' ?>">40</option>
                 </select>
               </form>
             </div>
@@ -154,7 +152,7 @@ $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
                   <p class="title-p"><?php echo $row["title"] ?></p>
                 </a>
                 <a href="property_details.php?id=<?php echo $row["property_id"] ?>">
-                  <h6><?php echo $row["city"] ?></h6>
+                  <h6><?php echo $row["city_name"] ?></h6>
                 </a>
               </div>
               <!-- Ratings & Cart -->

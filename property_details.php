@@ -1,20 +1,21 @@
-<?php include("header.php"); ?>
-<?php include("connection.php") ?>
 <?php
-if (isset($_GET["id"])) {
+include("header.php");
+include("connection.php");
+
+if (!isset($_GET["id"]) || !isset($_SESSION["userid"])) {
+  header("location: shop.php");
+} else {
   $property_id = $_GET["id"];
-}
-$userid = "";
-if (isset($_SESSION["userid"])) {
   $userid = $_SESSION["userid"];
 }
-$query = "SELECT * FROM property_tbl WHERE property_id='$property_id'";
+
+$query = "SELECT t1.*, t2.city_name FROM property_tbl as t1 
+JOIN city_tbl as t2 ON t1.city = t2.city_id 
+WHERE t1.property_id='$property_id'";
+
 $result = mysqli_query($conn, $query);
-if ($result->num_rows > 0) {
-  $row = mysqli_fetch_assoc($result);
-} else {
-  header("location: index.php");
-}
+if ($result->num_rows > 0) $row = mysqli_fetch_assoc($result);
+else header("location: login.php");
 ?>
 <!-- product details area start -->
 <div class="single-product-area section-padding-100 clearfix">
@@ -74,7 +75,7 @@ if ($result->num_rows > 0) {
             <p><b>Property Type : </b> <?php echo $row["property_type"] ?></p>
             <p><b>Property Size : </b> <?php echo $row["size"] . " " . $row["size_format"] ?></p>
             <p><b>Location : </b> <?php echo $row["property_address"] ?></p>
-            <p><b>City : </b> <?php echo $row["city"] ?></p>
+            <p><b>City : </b> <?php echo $row["city_name"] ?></p>
             <p><b>Area Zipcode : </b> <?php echo $row["pin"] ?></p>
 
             <?php if ($row["owner_id"] == $userid) { ?>
@@ -82,16 +83,18 @@ if ($result->num_rows > 0) {
                 <a href="edit_listing.php?id=<?php echo $property_id ?>" class="btn amado-btn mb-15"> EDIT LISTING</a>
               </div>
             <?php } else { ?>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Contact Owner
-              </button>
+
+              <div class="amado-btn-group mt-30 mb-100">
+                <button type="button" class="btn amado-btn mb-15 btn-primary" data-toggle="modal" data-target="#myModal">
+                  Contact Owner
+                </button>
+              </div>
 
               <!-- The Modal -->
               <div class="modal" id="myModal">
                 <div class="modal-dialog">
                   <div class="modal-content">
 
-                    <!-- Modal Header -->
                     <div class="modal-header">
                       <h4 class="modal-title">
                         Owner Contact Details
@@ -99,20 +102,20 @@ if ($result->num_rows > 0) {
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
-                    <!-- Modal body -->
                     <div class="modal-body">
                       <h5>Email : <a href="mailto:<?php echo $row["email"] ?>"><b><?php echo $row["email"] ?></b></a></h5>
                       <h5>Phone No : <a href="tel:<?php echo $row["phoneno"] ?>"><b><?php echo $row["phoneno"] ?></h5>
                     </div>
 
-                    <!-- Modal footer -->
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
+
                   </div>
                 </div>
               </div>
             <?php } ?>
+
           </div>
         </div>
       </div>

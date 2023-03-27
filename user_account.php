@@ -5,7 +5,10 @@
 if (isset($_SESSION["userid"])) {
   $userid = $_SESSION["userid"];
   $fname = $_SESSION["fname"];
-  $query = "SELECT * FROM users_tbl WHERE userid='$userid';";
+  $query = "SELECT t1.*, t2.city_name city_name, t3.state_name state_name FROM users_tbl t1 
+JOIN city_tbl t2 ON t1.city=t2.city_id 
+JOIN state_tbl t3 ON t1.state=t3.state_id
+WHERE userid='$userid';";
   $result = mysqli_query($conn, $query);
   $row = mysqli_fetch_assoc($result);
 } else {
@@ -71,7 +74,7 @@ if (isset($_SESSION["userid"])) {
                 <p class="mb-0"><b>Address</b></p>
               </div>
               <div class="col-sm">
-                <p class="text-right text-muted mb-0"><?php echo $row["address"] . ", " . $row["city"] . ", " . $row["state"] ?></p>
+                <p class="text-right text-muted mb-0"><?php echo $row["address"] . " " . $row["city_name"] . ", " . $row["state_name"] ?></p>
               </div>
             </div>
 
