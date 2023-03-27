@@ -12,17 +12,28 @@ $low = ((isset($_GET["low"])) ? $_GET["low"] : 0);
 $sort = ((isset($_GET["sort"])) ? $_GET["sort"] : "date");
 $order = ((isset($_GET["order"])) ? $_GET["order"] : "ASC");
 $view = ((isset($_GET["view"])) ? $_GET["view"] : "10");
-$type = ((isset($_GET["type"])) ? $_GET["type"] : "all");
-$city = ((isset($_GET["city"])) ? $_GET["city"] : "all");
-$state = ((isset($_GET["state"])) ? $_GET["state"] : "all");
+$type = ((isset($_GET["property-type"])) ? $_GET["property-type"] : "all");
+$city = ((isset($_GET["fileter-city"])) ? $_GET["fileter-city"] : "all");
+$state = ((isset($_GET["fileter-state"])) ? $_GET["fileter-state"] : "all");
 $where_clause = "where t1.status='active'";
 $where_clause1 = "";
 
-if ($type != "all") $where_clause = "WHERE t1.property_type='$type' AND t1.status='active'";
+if ($type != "all") $where_clause = $where_clause . " AND t1.property_type='$type'";
+if ($city != "all") $where_clause = $where_clause . " AND t1.city='$city'";
+// if ($state != "all") $where_clause = $where_clause . " AND t1.state='$state'";
 if ($userid != NULL) $where_clause1 = "WHERE user_id='$userid'";
 
 $tot = $low + $view;
-$query = "SELECT t1.* ,t2.wishlist_id FROM property_tbl AS t1 LEFT JOIN (SELECT * FROM wishlist_tbl $where_clause1 ) AS t2 ON t1.property_id = t2.property_id $where_clause ORDER BY t1.$sort $order LIMIT $low,$tot";
+$query = "SELECT t1.* ,t2.wishlist_id FROM property_tbl AS t1 
+LEFT JOIN (SELECT * FROM wishlist_tbl $where_clause1 ) AS t2 ON t1.property_id = t2.property_id $where_clause 
+ORDER BY t1.$sort $order LIMIT $low,$tot";
+
+$query = "SELECT t1.* ,t2.wishlist_id, t3.category_name category_name, t4.city_name city_name FROM property_tbl AS t1 
+LEFT JOIN (SELECT * FROM wishlist_tbl $where_clause1 ) AS t2 ON t1.property_id = t2.property_id 
+JOIN category_tbl AS t3 ON t1.property_type = t3.category_id 
+JOIN city_tbl as t4 ON t1.city = t4.city_id $where_clause
+ORDER BY t1.$sort $order LIMIT $low,$tot";
+
 if (!($result = mysqli_query($conn, $query))) {
   header("location: shop.php");
 }
@@ -31,7 +42,7 @@ $result2 = mysqli_query($conn, "SELECT COUNT(property_id) FROM `property_tbl` WH
 $row2 = mysqli_fetch_array($result2);
 $rnum = $row2[0];
 
-$result_property_type = mysqli_query($conn, "SELECT category_name FROM category_tbl;");
+$result_property_type = mysqli_query($conn, "SELECT * FROM category_tbl;");
 $result_states = mysqli_query($conn, "SELECT * FROM state_tbl;");
 $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
 ?>
@@ -42,9 +53,9 @@ $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
     <div class="filter-item">
       <label for="property_type">Property Type : </label>
       <select id="property_type" class="property-type-select" name="property-type" value="all">
-        <option value="All Properties">All Properties</option>
+        <option value="all">All Properties</option>
         <?php while ($row0 = mysqli_fetch_array($result_property_type)) { ?>
-          <option value="<?php echo $row0[0] ?>"><?php echo $row0[0] ?></option>
+          <option value="<?php echo $row0[0] ?>"><?php echo $row0[1] ?></option>
         <?php } ?>
       </select>
     </div>
@@ -54,9 +65,9 @@ $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
     <div class="filter-item">
       <label for="fileter-city">City : </label>
       <select id="fileter-city" class="city-select" name="fileter-city" value="all">
-        <option value="All Cities">All Cities</option>
+        <option value="all">All Cities</option>
         <?php while ($row1 = mysqli_fetch_array($result_cities)) { ?>
-          <option value="<?php echo $row1[1] ?>"><?php echo $row1[1] ?></option>
+          <option value="<?php echo $row1[0] ?>"><?php echo $row1[1] ?></option>
         <?php } ?>
       </select>
     </div>
@@ -66,9 +77,9 @@ $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
     <div class="filter-item">
       <label for="fileter-state">State : </label>
       <select id="fileter-state" class="state-select" name="fileter-state" value="all">
-        <option value="All States">All States</option>
+        <option value="all">All States</option>
         <?php while ($row2 = mysqli_fetch_array($result_states)) { ?>
-          <option value="<?php echo $row2[1] ?>"><?php echo $row2[1] ?></option>
+          <option value="<?php echo $row2[0] ?>"><?php echo $row2[1] ?></option>
         <?php } ?>
       </select>
     </div>
@@ -79,11 +90,8 @@ $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
         </div>
       </ul>
     </nav>
-
   </form>
 </div>
-
-
 
 <div class="amado_product_area section-padding-100">
   <div class="container-fluid">
@@ -128,11 +136,11 @@ $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
         <!-- Single Product Area -->
         <div class="col-12 col-sm-6 col-md-12 col-xl-6">
           <div class="single-product-wrapper">
+
             <!-- Product Image -->
             <a href="property_details.php?id=<?php echo $row["property_id"] ?>">
               <div class="product-img">
                 <img class="pimg" src="<?php echo $row["image_one"] ?>" alt="">
-                <!-- Hover Thumb -->
                 <img class="pimg hover-img" src="<?php echo $row["image_two"] ?>" alt="">
               </div>
             </a>
@@ -179,7 +187,6 @@ $result_cities = mysqli_query($conn, "SELECT * FROM city_tbl;");
       </div>
     </div>
   </div>
-</div>
 </div>
 <!-- ##### Main Content Wrapper End ##### -->
 

@@ -35,6 +35,8 @@ if ($result->num_rows > 0) {
   $email = $row[2];
   $phoneno = $row[3];
 }
+$result->free_result();
+
 
 if (isset($_POST["submit"])) {
   $title = addslashes($_POST["title"]);
@@ -116,7 +118,8 @@ if (isset($_POST["submit"])) {
 '$phoneno','$images[0]','$images[1]','$images[2]', '$images[3]', '$status','$date')";
 
   if (mysqli_query($conn, $query)) {
-    $result = mysqli_query($conn, "select property_id from property_tbl WHERE owner_id=$userid AND status='$status' ORDER BY property_id DESC LIMIT 0 , 1");
+    $query = "select property_id from property_tbl WHERE owner_id=$userid AND status='$status' ORDER BY property_id DESC LIMIT 0 , 1";
+    $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_row($result);
     header("location: checkout.php?listing_id=$row[0]");
   } else {
@@ -167,14 +170,14 @@ if (isset($_POST["submit"])) {
                   <p class="mb-0"><b>Property Type</b></p>
                 </div>
                 <div class="col-sm">
-                  <select class="category-select" name="property_type" value="<?php echo $property_type ?>">
-                    <option selected>Property Type</option>
-                    <option value=" house">House</option>
-                    <option value="ville">Villa</option>
-                    <option value="plot">Plot</option>
-                    <option value="land">Land</option>
-                    <option value="flat">Flat</option>
-                    <option value="appartment">Appartment</option>
+                  <?php
+                  $query = "SELECT * FROM category_tbl";
+                  $result = mysqli_query($conn, $query); ?>
+                  <select class="category-select" name="property_type" value="<?php echo $property_type ?>" required>
+                    <?php while ($row = mysqli_fetch_array($result)) { ?>
+                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                    <?php }
+                    $result->free_result(); ?>
                   </select>
                 </div>
               </div>
@@ -214,7 +217,15 @@ if (isset($_POST["submit"])) {
                   <p class="mb-0"><b>City</b></p>
                 </div>
                 <div class="col-sm">
-                  <input type="text" class="form-control" id="city" placeholder="City" value="<?php echo $city ?>" name="city" required>
+                  <?php
+                  $query = "SELECT * FROM city_tbl";
+                  $result = mysqli_query($conn, $query); ?>
+                  <select class="city-select" name="city" value="<?php echo $city ?>" required>
+                    <?php while ($row = mysqli_fetch_array($result)) { ?>
+                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                    <?php }
+                    $result->free_result(); ?>
+                  </select>
                 </div>
               </div>
 
