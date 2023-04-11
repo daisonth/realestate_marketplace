@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 27, 2023 at 01:46 PM
+-- Generation Time: Apr 11, 2023 at 03:16 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -1577,12 +1577,15 @@ CREATE TABLE `home_tbl` (
 --
 
 INSERT INTO `home_tbl` (`card_id`, `title`, `sub_title`, `card_image`, `card_link`) VALUES
-(19, 'Flates', 'Starting from 1CR', '../img/home/flat.jpg', 'shop.php?type=flat'),
-(20, 'Appartments', 'Starting from 20 L', '../img/home/Appartments.jpg', 'shop.php?type=Appartment'),
-(21, 'Houses', 'Starting from 30 L', '../img/home/home_1.jpg', 'shop.php?type=house'),
-(23, 'Plot', 'Starting from 30 L', '../img/home/land_2.jpg', 'shop.php?type=plot'),
-(24, 'Sell Your Property', 'â‚¹500 Per Post', '../img/home/light_gradient_1.jpg', 'sell.php'),
-(26, 'Properties In Mumbai', 'Starting from 1CR', '../img/home/mumbai.jpg', 'shop.php?city=mumbai');
+(32, 'Flats', 'Flats for sale', '../img/home/1flat_1.jpg', 'shop.php?property-type=9'),
+(33, 'Properties In Mumbai', 'See listings in Mumbai', '../img/home/2mumbai.jpg', 'http://localhost/realestate/shop.php?property-type=all&fileter-city=817&fileter-state=all&submit=Search'),
+(35, 'Premium Houses', 'Buy Premium Houses', '../img/home/3lux_houses.jpg', 'http://localhost/realestate/shop.php?property-type=6&fileter-city=all&fileter-state=all&submit=Search'),
+(36, 'Appartments', 'Buy Appartments', '../img/home/4room.jpg', 'http://localhost/realestate/shop.php?property-type=10&fileter-city=all&fileter-state=all&submit=Search'),
+(38, 'Houses for sale', 'See all listed Houses', '../img/home/5house_1.jpg', 'http://localhost/realestate/shop.php?property-type=6&fileter-city=all&fileter-state=all&submit=Search'),
+(40, 'Properties in Kerala', 'Buy from the best properties in Kerala', '../img/home/6kerala.jpg', 'http://localhost/realestate/shop.php?property-type=all&fileter-city=all&fileter-state=18&submit=Search'),
+(41, 'Plot for sale', 'See all plots listed for sale', '../img/home/7plot.jpg', 'http://localhost/realestate/shop.php?property-type=11&fileter-city=all&fileter-state=all&submit=Search'),
+(44, 'Sell your Property', 'List you property for sale in minutes', '../img/home/8sell.jpg', 'sell.php'),
+(45, 'Sign Up Now', 'Click Here to create a New Account', '../img/home/9_signup.jpg', 'signup.php');
 
 -- --------------------------------------------------------
 
@@ -1614,6 +1617,23 @@ CREATE TABLE `property_tbl` (
   `status` varchar(30) NOT NULL DEFAULT 'active',
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `property_tbl`
+--
+
+INSERT INTO `property_tbl` (`property_id`, `owner_id`, `title`, `discription`, `property_type`, `size`, `size_format`, `property_address`, `city`, `pin`, `price`, `denomination`, `fname`, `lname`, `email`, `phoneno`, `image_one`, `image_two`, `image_three`, `image_four`, `status`, `date`) VALUES
+(17, 16, '2 BHK Flat for sale in Guruvayoor', 'Looking for a good 2 BHK Apartment in Guruvayoor, Guruvayoor? This property is in one of Guruvayoors most popular locations. This is a no brokerage property. The property is on floor 4. Total number of floors is 8. Maintenance charges of this property is Rs 2000. This Apartment is available for Rs 54.0 L. This modern unit has a built-up area of 1280 Square feet. There are 2 bedrooms and 2 bathroom. It is very close to some of citys best hospitals, such as, Rajah Hospital, Tahani Hospital, and Sraddha Physiotherapy Clinic. Established schools, such as Sreekrishna High School, Little Flower Convent Girls Higher Secondary School, and GHSS Chavakkad are also close-by<br />\r\nBuild Up Area-1280 sq.ft<br />\r\nAvg. Price-â‚¹4.22 K/sq.ft<br />\r\nBedrooms-2<br />\r\nBathrooms-2<br />\r\nParking-1 Open Parking<br />\r\nBalcony-2<br />\r\n', 9, '1280', 'Cent', 'Platinum Pancharatna, Guruvayoor, Guruvayoor', 643, '345678', '54', 'lk', 'James', 'Bond', 'test@test.test', '12341341234', 'uploads/16_Flat11.jpeg', 'uploads/16_Flat12.jpeg', 'uploads/16_Flat13.jpeg', 'uploads/16_flat14.jpeg', 'active', '2023-03-29'),
+(18, 16, '2 BHK Independent House for sale in Amalanagar, Thrissur', 'This property is located at Karore near Avanur. This is near to Thrissur Government Medical College(only 3 KMS). Also near to Kerala Health University ( only 2.5 KMS). Only 8 KMS to Amala Medical College.Only 5 KMS to Mundur centre. Good climate conditions with greenary and water availability is the key highlights of this place. Temples, Church, Shops are also near the house. Bus route is also there near the house.<br />\r\nBuild Up Area-850 sq.ft<br />\r\nAvg. Price-â‚¹2.71 K/sq.ft<br />\r\nBedrooms-2<br />\r\nBathrooms-2<br />\r\nParking-1 Open Parking<br />\r\nBalcony-1<br />\r\n', 6, '850', 'sqrft', 'Amalanagar, Thrissur', 687, '345567', '23', 'lk', 'James', 'Bond', 'test@test.test', '12341341234', 'uploads/16_House11.jpeg', 'uploads/16_House12.jpeg', 'uploads/16_house13.jpeg', 'uploads/16_House14.jpeg', 'active', '2023-03-29'),
+(19, 16, 'Plot Area-2178 sq.ft Avg. Price-â‚¹918/sq.', '2178 Square feet Plot for sale in Ottapalam, Palakkad. This land has a dimension of 47.0 mt length 47.0 mt width. This Plot is available at a price of Rs 20.0 L. The average price per sqft is Rs 918.0. Price. The width of the facing road is 246.0 mt. The brokerage amount to be paid is Rs 0.<br />\r\nPlot Area-2178 sq.ft<br />\r\nAvg. Price-â‚¹918/sq.y', 11, '2178', 'sqrft', 'Ottapalam, Palakkad', 1, '567234', '20', 'lk', 'James', 'Bond', 'test@test.test', '12341341234', 'uploads/16_plote1.jpeg', 'uploads/16_plote2.jpeg', 'uploads/16_plote3.jpeg', 'uploads/16_plote4.jpg', 'active', '2023-03-29'),
+(20, 15, '3 BHK Flat for sale in Vennala', 'Property for sale in Vennala, Kochi. This 3 BHK Apartment is located in Kochi\'s most promising location. This property is posted by owner and there is no brokerage involved. It is on floor 13. The total number of floors in this building is 14. This Apartment\'s price is Rs 87.0 L. Homebuyers will also need to pay Rs 3000 towards maintenance. This Apartment is a spacious unit, with carpet area of 1500 Square feet and is ideal for families. The built-up area is 1760 Square feet. The property has 3 bedrooms and 4 bathroom. This Apartment is strategically located within close distance of famous healthcare centres such as Polakulath Narayanan Renai Medicity Multi Super Speciality Hospital, Ernakulam Medical Centre, and Vijayalakshmi Medical Centre. Schools like Kochi Nagara Sabha Anganwadi, Hayathul Islam Madrasa, and Engineers International Finishing School are also nearby<br />\r\nBuild Up Area-1760 sq.ft<br />\r\nAvg. Price-â‚¹4.83 K/sq.ft<br />\r\nBedrooms-3<br />\r\nBathrooms-4<br />\r\nParking-1 Covered Parking<br />\r\nBalcony-3', 9, '1760', 'cent', 'Colossal Vennala,Vennala, Kochi', 653, '567234', '85', 'lk', 'Donnie ', 'H. Funkhouser  ', 'DonnieHFunkhouser@dayrep.com', '2354-2342-322', 'uploads/15_Flat21.jpeg', 'uploads/15_Flat22.jpeg', 'uploads/15_Flat23.jpeg', 'uploads/15_Flat24.jpeg', 'active', '2023-03-29'),
+(21, 15, '5 BHK Independent House for sale in Amalanagar, Thrissur', 'Property for sale in Amalanagar, Thrissur. This 5 BHK Independent House is located in Thrissur\'s most promising location. This property is posted by owner and there is no brokerage involved. This Independent House\'s price is Rs 1.55 Cr. Homebuyers will also need to pay Rs 1400 towards maintenance. This Independent House is a spacious unit, with carpet area of 2968 Square feet and is ideal for families. The built-up area is 3100 Square feet. The property has 5 bedrooms and 7 bathroom. This Independent House is strategically located within close distance of famous healthcare centres such as Amala Ayurvedic Hospital And Research Centre, Adat Primary Health Centre, and Sree Ramakrishna Math Hospital. Schools like Mary Rani English Medium School, Mother Arts, and Government UP School are also nearby<br />\r\nBuild Up Area-3100 sq.ft<br />\r\nAvg. Price-â‚¹5.00 K/sq.ft<br />\r\nCarpet Area-2968 sq.ft<br />\r\nBedrooms-5<br />\r\nBathrooms-7<br />\r\nParking-2 Covered Parking<br />\r\nBalcony-3', 6, '5', 'bhk', 'Amalanagar, Thrissur', 687, '324890', '1.55', 'cr', 'Donnie ', 'H. Funkhouser  ', 'DonnieHFunkhouser@dayrep.com', '2354-2342-322', 'uploads/15_House22.jpeg', 'uploads/15_House23.jpeg', 'uploads/15_House24.jpeg', 'uploads/15_House25.jpeg', 'active', '2023-03-29'),
+(22, 15, 'Residential Plot for sale in Ollur, Thrissur', '400 Square meters Plot for sale in Ollur, Thrissur. This land has a dimension of 35.0 mt length 15.0 mt width. This Plot is available at a price of Rs 3.9 L. The average price per sqft is Rs 975.0. Price. The width of the facing road is 20.0 mt. The brokerage amount to be paid is Rs 0. The most popular landmarks near this plot are Udv Hr Sec School, Diamond Fort Caters, and Pavanatma FC Convent School<br />\r\n', 6, '40', 'cent', 'Ollur, Thrissur', 687, '3456758', '30', 'lk', 'Donnie ', 'H. Funkhouser  ', 'DonnieHFunkhouser@dayrep.com', '2354-2342-322', 'uploads/15_plote21.jpeg', 'uploads/15_plote22.png', 'uploads/15_plote23.jpeg', 'uploads/15_plote24.jpeg', 'active', '2023-03-29'),
+(23, 17, '4BHK Flat for sale in Chilavannur', 'Best4 BHK Apartment for modern-day lifestyle is now available for sale. No brokerageinvolved, Posted by Owner. Grab this 4 BHK property for sale in one ofKochis top location, Chilavannur. It is situated on floor 17. The total numberof floors in this Apartment is 19. The property price of this unit is Rs 1.65Cr. Monthly maintenance costs Rs 4600. The carpet area of this unit is 2200Square feet. The built-up area is 2400 Square feet. There are 4 bedrooms and5 bathroom. It is an ideal location for young families with kid\'s, as this propertyis close to Saint Monicas LP School, Toc H Public School, and Soure MissionarieDell Incarnazione. Healthcare facility is also close at hand with MedicalTrust Hospital, Silverline Hospital, and Nairs Hospital nearby.<br />\r\nBuildUp Area-2400 sq.ft<br />\r\nAvg.Price-â‚¹6.88 K/sq.ft<br />\r\nCarpetArea-2200 sq.ft<br />\r\nBedrooms-4<br />\r\nBathrooms-5<br />\r\nParking-1Covered and 1 Open Parking<br />\r\nBalcony-5', 10, '4', 'bhk', 'HeeraWaters, Chilavannur, Kochi', 653, '345782', '1.6', 'cr', 'Tara', 'Davis', 'TaraCDavis@armyspy.com', '332520663', 'uploads/17_Flat31.jpeg', 'uploads/17_Flat33.jpeg', 'uploads/17_Flat34.jpeg', 'uploads/17_Flat36.jpeg', 'active', '2023-03-29'),
+(24, 17, '6 BHK Independent House for sale in Basavanagudi, Bangalore', '6 BHK Independent House for sale in Basavanagudi, Bengaluru with modern-day amenities. The Independent House is in Basavanagudi which is a promising investment destination in Bengaluru. This might be your chance to grab the best 6 BHK property for sale in Basavanagudi. This 6 BHK Independent House is available at a reasonable price of Rs 6.5 Cr. The built-up area is 4700 Square feet. This property has provision for 6 bathroom. It enjoys a strategic location with many reputed and multispeciality hospitals nearby like Sri Shankara Cancer Foundation, BRINDHAVVAN AREION HOSPITAL, and Apollo Clinic. The citys best schools like CADD NEST (P) Ltd.,, Vikas Learning Centre, and Baldwin Girls High School are also near this housing project. The brokerage amount to be paid is Rs 0<br />\r\nBuild Up Area-4700 sq.ft<br />\r\nAvg. Price-â‚¹13.83 K/sq.ft<br />\r\nBedrooms-6<br />\r\nBathrooms-6<br />\r\nParking-3 Covered and 3 Open Parking<br />\r\nBalcony-3', 6, '4700', 'sqrft', 'Jhadhavs,Visveswarapuram, Basavanagudi,Bangalore', 549, '678345', '6.5', 'cr', 'Tara', 'Davis', 'TaraCDavis@armyspy.com', '332520663', 'uploads/17_House31.jpeg', 'uploads/17_House32.jpeg', 'uploads/17_House33.jpeg', 'uploads/17_House34.jpeg', 'active', '2023-03-29'),
+(25, 17, '2210 Sq-ft 3 BHK Flat For Sale in Paravattani, Thrissur', 'Promoting a healthy, prosperous and joyful lifestyle, a 3 BHK Flat is available for sale in Paravattani, Thrissur at an amazing price. This custom-made property is located 2km away from the Cultural Capital of Kerala and embellished with 5-star amenities, this centrally located property awaits your attention. ', 10, '3', 'bhk', '6a., Paravattani, Thrissur, Kerala', 687, '456723', '2.3', 'lk', 'Tara', 'Davis', 'TaraCDavis@armyspy.com', '332520663', 'uploads/17_a11.jpg', 'uploads/17_a12.jpg', 'uploads/17_a13.JPG', 'uploads/17_a14.jpg', 'active', '2023-03-29'),
+(26, 17, '5 BHK For Sale in Emaar MGF Marbella, ', 'Emaar Marbella is located in Sector 66, Golf Course Extension in Gurgaon. Emaar Marbella is currently a Ready to Move project . Emaar Marbella is offering 4, 5 BHK Villa in size ranging from 5605 Sq. Ft. to 8120 Sq. Ft.Saleable Emaar Marbella is approximately at 0.8 Kms from Golf Course Extension Road and 5.7 Kms from Golf Course Road. Project has a connectivity rating of 7.8, livability rating of 7.1, lifestyle rating of 7.9 and value for money rating of 6.5 out of 10. Project has Exquisite Landscaping, Outstanding Architecture, All Luxury Specifications, Advanced Security Features , Good .', 12, '5', 'bhk', 'Sector 66, Golf Course Extension Road, Gurugram, Sector 66, Gurgaon, Delhi NCR', 446, '345678', '11', 'cr', 'Tara', 'Davis', 'TaraCDavis@armyspy.com', '332520663', 'uploads/17_h40.jpeg', 'uploads/17_h41.jpeg', 'uploads/17_h42.jpeg', 'uploads/17_h43.jpeg', 'active', '2023-03-29'),
+(27, 17, '4 BHK For Sale in SBTL Caladium, Sector 109, Gurgaon', 'Caladium! A flower of prosperity & joy. Its iconic green architecture and intensive landscaping would have inspired John Keats to live in it & acclaim \"A thing of beauty is a joy forever\" A new paradigm in housing', 9, '4', 'bhk', 'Sector 109, Gurgaon, Delhi NCR', 446, '678345', '3.47', 'cr', 'Tara', 'Davis', 'TaraCDavis@armyspy.com', '332520663', 'uploads/17_f51.jpg', 'uploads/17_f52.jpg', 'uploads/17_f53.jpg', 'uploads/17_f54.jpg', 'active', '2023-03-29');
 
 -- --------------------------------------------------------
 
@@ -1692,7 +1712,9 @@ CREATE TABLE `users_tbl` (
 --
 
 INSERT INTO `users_tbl` (`userid`, `firstname`, `lastname`, `password`, `email`, `phoneno`, `address`, `city`, `state`, `pincode`) VALUES
-(15, 'Donnie ', 'H. Funkhouser  ', '1234', 'DonnieHFunkhouser@dayrep.com', '2354-2342-322', '4287 Glenview Drive Corpus Christi,', 583, 17, '345323');
+(15, 'Donnie ', 'H. Funkhouser  ', '1234', 'DonnieHFunkhouser@dayrep.com', '2354-2342-322', '4287 Glenview Drive Corpus Christi,', 583, 17, '345323'),
+(16, 'James', 'Bond', '1234', 'test@test.test', '12341341234', 'House No 69', 653, 18, '678234'),
+(17, 'Tara', 'Davis', '1234', 'TaraCDavis@armyspy.com', '332520663', '2354 Turkey ', 634, 18, '345568');
 
 -- --------------------------------------------------------
 
@@ -1705,6 +1727,20 @@ CREATE TABLE `wishlist_tbl` (
   `property_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `wishlist_tbl`
+--
+
+INSERT INTO `wishlist_tbl` (`wishlist_id`, `property_id`, `user_id`) VALUES
+(46, 18, 17),
+(47, 24, 17),
+(48, 17, 17),
+(50, 26, 15),
+(52, 24, 16),
+(53, 22, 16),
+(54, 18, 15),
+(55, 21, 15);
 
 --
 -- Indexes for dumped tables
@@ -1792,25 +1828,25 @@ ALTER TABLE `city_tbl`
 -- AUTO_INCREMENT for table `home_tbl`
 --
 ALTER TABLE `home_tbl`
-  MODIFY `card_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `card_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `property_tbl`
 --
 ALTER TABLE `property_tbl`
-  MODIFY `property_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `property_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `users_tbl`
 --
 ALTER TABLE `users_tbl`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `wishlist_tbl`
 --
 ALTER TABLE `wishlist_tbl`
-  MODIFY `wishlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `wishlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- Constraints for dumped tables
