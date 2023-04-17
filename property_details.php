@@ -54,7 +54,8 @@ else header("location: login.php");
               </div>
             </div>
           </div>
-        </div>
+        </div><br>
+        <?php echo $row["map"] ?>
       </div>
       <div class="col-12 col-lg-5">
         <div class="single_product_desc">

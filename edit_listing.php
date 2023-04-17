@@ -34,6 +34,7 @@ if ($result->num_rows > 0) {
   $images[1] = $row["image_two"];
   $images[2] = $row["image_three"];
   $images[3] = $row["image_four"];
+  $map = $row["map"];
 }
 $result->free_result();
 
@@ -56,6 +57,7 @@ if (isset($_POST["submit"])) {
   $phoneno = $_POST["phoneno"];
   $fname = $_POST["fname"];
   $lname = $_POST["lname"];
+  $map = addslashes(nl2br($_POST["map"]));
   $logs = "";
 
   for ($i = 0; $i < 4; $i++) {
@@ -122,7 +124,7 @@ if (isset($_POST["submit"])) {
     // }
   }
 
-  $query = "UPDATE property_tbl set owner_id='$userid', title='$title', discription='$discription', property_type='$property_type', size='$size', size_format='$size_format', property_address='$property_address', city='$city', pin='$pin', price='$price', denomination='$denomination', fname='$fname', lname='$lname', email='$email', phoneno='$phoneno', image_one='$images[0]', image_two='$images[1]', image_three='$images[2]', image_four='$images[3]' WHERE property_id='$property_id'";
+  $query = "UPDATE property_tbl set owner_id='$userid', title='$title', discription='$discription', property_type='$property_type', size='$size', size_format='$size_format', property_address='$property_address', city='$city', pin='$pin', price='$price', denomination='$denomination', fname='$fname', lname='$lname', email='$email', phoneno='$phoneno', image_one='$images[0]', image_two='$images[1]', image_three='$images[2]', image_four='$images[3]', map='$map' WHERE property_id='$property_id'";
 
   if (mysqli_query($conn, $query)) {
     header("location: property_details.php?id=$property_id");
@@ -275,6 +277,16 @@ if (isset($_POST["submit"])) {
                               echo "selected";
                             } ?> value="cr">Crore</option>
                   </select>
+                </div>
+              </div>
+
+              <hr>
+              <div class="row">
+                <div class="col-sm">
+                  <p class="mb-0"><b>Embed Google Map</b> [otional]</p>
+                </div>
+                <div class="col-sm">
+                  <input type="text" class="form-control" id="map" placeholder="place your map code here"name="map">
                 </div>
               </div>
 

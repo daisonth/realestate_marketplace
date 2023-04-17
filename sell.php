@@ -24,6 +24,7 @@ $email = "";
 $phoneno = "";
 $fname = "";
 $lname = "";
+$map = "";
 $status = "disabled";
 
 $query1 = "SELECT firstname,lastname,email,phoneno FROM users_tbl WHERE userid='$userid';";
@@ -56,6 +57,7 @@ if (isset($_POST["submit"])) {
   if (isset($_POST["fname"])) $fname = $_POST["fname"];
   if (isset($_POST["lname"])) $lname = $_POST["lname"];
   $date = date('y-m-d');
+  $map = addslashes(nl2br($_POST["map"]));
   $images = array();
   $logs = "";
 
@@ -115,9 +117,9 @@ if (isset($_POST["submit"])) {
   }
   $query = "INSERT INTO property_tbl(`owner_id`,`title`, `discription`, `property_type`, `size`, `size_format`,
 `property_address`, `city`, `pin`, `price`, `denomination`, `fname`, `lname`, `email`, `phoneno`, `image_one`, 
-`image_two`, `image_three`, `image_four`, `status`, `date`) VALUES ('$userid','$title','$discription','$property_type',
+`image_two`, `image_three`, `image_four`, `status`, `date`, `map`) VALUES ('$userid','$title','$discription','$property_type',
 '$size','$size_format','$property_address','$city','$pin', '$price','$denomination','$fname','$lname','$email',
-'$phoneno','$images[0]','$images[1]','$images[2]', '$images[3]', '$status','$date')";
+'$phoneno','$images[0]','$images[1]','$images[2]', '$images[3]', '$status','$date','$map')";
 
   if (mysqli_query($conn, $query)) {
     $query = "select property_id from property_tbl WHERE owner_id=$userid AND status='$status' ORDER BY property_id DESC LIMIT 0 , 1";
@@ -254,6 +256,16 @@ if (isset($_POST["submit"])) {
                     <option value="lk">Lakhs</option>
                     <option value="cr">Crore</option>
                   </select>
+                </div>
+              </div>
+
+              <hr>
+              <div class="row">
+                <div class="col-sm">
+                  <p class="mb-0"><b>Embed Google Map</b> [otional]</p>
+                </div>
+                <div class="col-sm">
+                  <input type="text" class="form-control" id="map" placeholder="place your map code here" value="<?php echo $map ?>" name="map">
                 </div>
               </div>
 
