@@ -113,7 +113,8 @@ $result = mysqli_query($conn, $query);
             </thead>
             <tbody>
               <?php if (isset($_GET["edit"])) { ?>
-                <form action="edit_home_page.php" method="post" enctype="multipart/form-data">
+              
+                <form action="update_home_page.php" method="post" enctype="multipart/form-data">
                   <tr>
                     <td class="cart_product_img">
                       <div class="custom-file">
@@ -122,13 +123,13 @@ $result = mysqli_query($conn, $query);
                       </div>
                     </td>
                     <td class="cart_product_img">
-                      <input type="text" class="form-control" id="title" name="title" placeholder="Title..." required>
+                    <input type="text" class="form-control" id="title" value="<?php echo(""); ?>" name="title" placeholder="Title..." required>
                     </td>
                     <td class="cart_product_img">
-                      <input type="text" class="form-control" id="title" name="sub_title" placeholder="Sub Title..." required>
+                      <input type="text" class="form-control" id="title" value="<?php echo(""); ?>" name="sub_title" placeholder="Sub Title..." required>
                     </td>
                     <td class="cart_product_img">
-                      <input type="text" class="form-control" id="title" name="hyperlink" placeholder="hyperlink..." required>
+                      <input type="text" class="form-control" id="title" value="<?php echo(""); ?>" name="hyperlink" placeholder="hyperlink..." required>
                     </td>
                     <td class="cart_product_img">
                       <input type="submit" class="btn " name="submit" value="✅">
@@ -153,7 +154,7 @@ $result = mysqli_query($conn, $query);
                     <h5><?php echo $row["card_link"] ?></h5>
                   </td>
                   <td class="qty">
-                    <!-- <a href="update_home_page.php?edit=<?php echo $row["card_id"] ?>" data-toggle="tooltip" data-placement="left" title="Delete"><img class="" src="../img/core-img/edit.png"></a> &nbsp &nbsp -->
+                    <a href="update_home_page.php?edit=<?php echo $row["card_id"] ?>" data-toggle="tooltip" data-placement="left" title="Delete"><img class="" src="../img/core-img/edit.png"></a> &nbsp &nbsp
                     <a href="edit_home_page.php?remove=<?php echo $row["card_id"] ?>" data-toggle="tooltip" data-placement="left" title="Delete"><img class="bin" src="../img/core-img/bin_black.png"></a>
                   </td>
                 </tr>

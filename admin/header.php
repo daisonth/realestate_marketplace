@@ -57,10 +57,10 @@ include("connection.php");
           <li><a href="index.php" class="fav-nav"><img src="../img/core-img/dashboard.png" alt=""> Dashboard</a></li>
           <li><a href="edit_home_page.php" class="fav-nav"><img src="../img/core-img/home.png" alt=""> Edit Home Page</a></li>
           <li><a href="properties_listed.php" class="fav-nav"><img src="../img/core-img/shopping.png" alt=""> Listed Properties</a></li>
-          <li><a href="registerd_users.php" class="fav-nav"><img src="../img/core-img/listings.png" alt=""> Registerd Users</a></li>
+          <li><a href="registerd_users.php" class="fav-nav"><img src="../img/core-img/users.png" alt=""> Registerd Users</a></li>
           <li><a href="categories.php" class="fav-nav"><img src="../img/core-img/listings.png" alt=""> Categories</a></li>
-          <li><a href="cities.php" class="fav-nav"><img src="../img/core-img/listings.png" alt=""> Cities</a></li>
-          <li><a href="states.php" class="fav-nav"><img src="../img/core-img/listings.png" alt=""> States</a></li>
+          <li><a href="cities.php" class="fav-nav"><img src="../img/core-img/city.png" alt=""> Cities</a></li>
+          <li><a href="states.php" class="fav-nav"><img src="../img/core-img/state.png" alt=""> States</a></li>
           <!-- <li><a href="states.php" class="fav-nav"><img src="../img/core-img/user.png" alt=""> <?php echo $_SESSION["fname"] ?></a></li> -->
         </ul>
       </nav>

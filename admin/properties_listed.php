@@ -8,9 +8,15 @@ if (!isset($_SESSION["admin_id"])) {
   $admin_id = $_SESSION["admin_id"];
 }
 
-$query = "SELECT * FROM property_tbl;";
+if(isset($_GET["id"])) {
+  $id = $_GET["id"];
+  $query = "SELECT * FROM property_tbl WHERE owner_id=$id;";
+} else {
+  $query = "SELECT * FROM property_tbl;";
+}
 $result = mysqli_query($conn, $query);
 ?>
+
 
 <div class="cart-table-area section-padding-100">
   <div class="container-fluid">
@@ -41,8 +47,13 @@ $result = mysqli_query($conn, $query);
                     <h5><?php echo $row["title"] ?></h5>
                     <a target="_blank" href="../property_details.php?id=<?php echo $row["property_id"] ?>">view</a>
                   </td>
+                  <?php 
+                    $price = $row["price"];
+                    if($row["denomination"] == "lk") $price/=100000;
+                    else $price/=10000000;
+                  ?>
                   <td class="price">
-                    <p>₹<?php echo $row["price"] . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
+                    <p>₹<?php echo $price . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
                   </td>
                   <td class="qty">
                     <span><?php echo strtoupper($row["status"]) ?> <a href="switch_status.php?id=<?php echo $row["property_id"] ?>"><img src="../img/core-img/rotate.png"></a></span>
