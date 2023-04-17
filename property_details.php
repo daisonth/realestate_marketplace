@@ -17,6 +17,7 @@ $result = mysqli_query($conn, $query);
 if ($result->num_rows > 0) $row = mysqli_fetch_assoc($result);
 else header("location: login.php");
 ?>
+
 <!-- product details area start -->
 <div class="single-product-area section-padding-100 clearfix">
   <div class="container-fluid">
@@ -60,7 +61,12 @@ else header("location: login.php");
           <!-- product meta data -->
           <div class="product-meta-data">
             <div class="line"></div>
-            <p class="product-price">₹<?php echo $row["price"] . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
+            <?php 
+              $price = $row["price"];
+              if($row["denomination"] == "lk") $price/=100000;
+              else $price/=10000000;
+            ?>
+            <p class="product-price">₹<?php echo $price . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
             <h4><?php echo $row["title"] ?></h4>
             <!-- Avaiable -->
             <p class="avaibility"><i class="fa fa-circle"></i> <?php echo $row["status"] ?></p>

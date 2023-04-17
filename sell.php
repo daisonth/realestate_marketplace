@@ -49,6 +49,8 @@ if (isset($_POST["submit"])) {
   $pin = $_POST["pin"];
   $price = $_POST["price"];
   $denomination = $_POST["denomination"];
+  if($denomination == "lk") $price*=100000;
+  else $price*=10000000;
   if (isset($_POST["email"])) $email = $_POST["email"];
   if (isset($_POST["phoneno"])) $phoneno = $_POST["phoneno"];
   if (isset($_POST["fname"])) $fname = $_POST["fname"];

@@ -24,6 +24,8 @@ if ($result->num_rows > 0) {
   $pin = $row["pin"];
   $price = $row["price"];
   $denomination = $row["denomination"];
+  if($denomination == "lk") $price/=100000;
+  else $price/=10000000;
   $fname = $row["fname"];
   $lname = $row["lname"];
   $email = $row["email"];
@@ -46,6 +48,10 @@ if (isset($_POST["submit"])) {
   $pin = $_POST["pin"];
   $price = $_POST["price"];
   $denomination = $_POST["denomination"];
+  if($price <= 9999) {
+    if($denomination == "lk") $price*=100000;
+    else $price*=10000000;
+  }
   $email = $_POST["email"];
   $phoneno = $_POST["phoneno"];
   $fname = $_POST["fname"];

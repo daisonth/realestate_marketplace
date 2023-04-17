@@ -42,8 +42,13 @@ $result = mysqli_query($conn, $query);
                     <h5><?php echo $row["title"] ?></h5>
                     <a href="property_details.php?id=<?php echo $row["property_id"] ?>">view</a>
                   </td>
+                  <?php 
+                    $price = $row["price"];
+                    if($row["denomination"] == "lk") $price/=100000;
+                    else $price/=10000000;
+                  ?>
                   <td class="price">
-                    <p>₹<?php echo $row["price"] . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
+                    <p>₹<?php echo $price . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
                   </td>
                   <td class="qty">
                     <span><?php echo strtoupper($row["status"]) ?></span>

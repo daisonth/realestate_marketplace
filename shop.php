@@ -156,9 +156,14 @@ $link = 'shop.php?property-type=' . $type . '&fileter-city=' . $city . '&fileter
                 </a>
               </div>
               <!-- Ratings & Cart -->
+              <?php 
+                $price = $row["price"];
+                if($row["denomination"] == "lk") $price/=100000;
+                else $price/=10000000;
+              ?>
               <div class="ratings-cart text-right">
                 <div class="product-meta-data">
-                  <p class="product-price product-price-c">₹<?php echo $row["price"] . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
+                  <p class="product-price product-price-c">₹<?php echo $price . (($row["denomination"] == "lk") ? " Lk" : " Cr") ?></p>
                 </div>
                 <div class="cart">
                   <a href="wishlist.php?id=<?php echo $row["property_id"] ?>" data-toggle="tooltip" data-placement="left" title="<?php echo (($row["wishlist_id"] != null) ? "Remove From Wishlist" : "Add To Wishlist"); ?>">
