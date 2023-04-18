@@ -262,7 +262,7 @@ if (isset($_POST["submit"])) {
               <hr>
               <div class="row">
                 <div class="col-sm">
-                  <p class="mb-0"><b>Embed Google Map</b> [otional]</p>
+                  <p class="mb-0"><b>Embed Google Map</b> [optional]</p>
                 </div>
                 <div class="col-sm">
                   <input type="text" class="form-control" id="map" placeholder="place your map code here" value="<?php echo $map ?>" name="map">
