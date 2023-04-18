@@ -55,7 +55,7 @@ if ($row = $result->fetch_row()) $city_count = $row[0];
               </div>
             </div>
           </div>
-          <a href="#" target="_blank">
+          <a href="registerd_users.php" >
             <div class="card-footer bg-light text-primary">
               <span class="float-left">More details</span>
               <span class="float-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -81,7 +81,7 @@ if ($row = $result->fetch_row()) $city_count = $row[0];
                 </div>
               </div>
             </div>
-            <a href="#" target="_blank">
+            <a href="properties_listed.php" >
               <div class="card-footer bg-light text-secondary">
                 <span class="float-left">More details</span>
                 <span class="float-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -108,7 +108,7 @@ if ($row = $result->fetch_row()) $city_count = $row[0];
                 </div>
               </div>
             </div>
-            <a href="#" target="_blank">
+            <a href="#" >
               <div class="card-footer bg-light text-success">
                 <span class="float-left">More details</span>
                 <span class="float-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -135,7 +135,7 @@ if ($row = $result->fetch_row()) $city_count = $row[0];
                 </div>
               </div>
             </div>
-            <a href="#" target="_blank">
+            <a href="properties_listed.php" >
               <div class="card-footer bg-light text-danger">
                 <span class="float-left">More details</span>
                 <span class="float-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -162,7 +162,7 @@ if ($row = $result->fetch_row()) $city_count = $row[0];
                 </div>
               </div>
             </div>
-            <a href="#" target="_blank">
+            <a href="categories.php" >
               <div class="card-footer bg-light text-warning">
                 <span class="float-left">More details</span>
                 <span class="float-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -189,7 +189,7 @@ if ($row = $result->fetch_row()) $city_count = $row[0];
                 </div>
               </div>
             </div>
-            <a href="#" target="_blank">
+            <a href="cities.php" >
               <div class="card-footer bg-light text-info">
                 <span class="float-left">More details</span>
                 <span class="float-right"><i class="fa fa-arrow-circle-right"></i></span>

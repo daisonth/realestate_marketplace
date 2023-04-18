@@ -18,6 +18,7 @@
   include("connection.php");
   $email = "";
   $password = "";
+  $error = false;
 
   if (isset($_POST["login"])) {
     $email = $_POST["email"];
@@ -33,7 +34,8 @@
       $_SESSION["fname"] = $row[1];
       header("location: index.php");
     } else {
-      echo "login failed";
+      // echo "login failed";
+      $error = true;
     }
   }
   ?>
@@ -75,6 +77,7 @@
                   </div>
                 </div>
                 <div class="amado-btn-group mt-30 mb-100">
+                  <p><?php if($error) echo "Login failed! Try again with valid credentials"; ?></p>
                   <input type="submit" class="btn amado-btn mb-15" name="login" value="Login">
                 </div>
               </form>

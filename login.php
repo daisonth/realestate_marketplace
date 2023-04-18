@@ -20,6 +20,7 @@
   <?php
   $email = "";
   $password = "";
+  $error = false;
 
   if (isset($_POST["login"])) {
     $email = $_POST["email"];
@@ -35,7 +36,8 @@
       $_SESSION["fname"] = $row[1];
       header("location: index.php");
     } else {
-      echo "login faile";
+      // echo "login failed";
+      $error = true;
     }
   }
   ?>
@@ -65,7 +67,6 @@
               <div class="cart-title">
                 <h2>Login</h2>
               </div>
-
               <form action="login.php" method="post">
                 <div class="row">
                   <div class="col-12 mb-3">
@@ -78,11 +79,11 @@
                   </div>
                 </div>
                 <div class="amado-btn-group mt-30 mb-100">
-                  <p>if you do not have an account, <a href="signup.php" class="text-weight-bold">SignUp Here</a></p>
+                  <p><?php if($error) echo "Login failed! Try again with valid credentials"; ?></p>
+                  <p>If you do not have an account, <a href="signup.php" class="text-weight-bold">SignUp Here</a></p>
                   <input type="submit" class="btn amado-btn mb-15" name="login" value="Login">
                 </div>
               </form>
-
             </div>
           </div>
         </div>
